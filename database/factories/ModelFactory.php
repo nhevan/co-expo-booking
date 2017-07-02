@@ -54,3 +54,17 @@ $factory->define(App\Stand::class, function (Faker\Generator $faker) {
         'is_booked' => false,
     ];
 });
+
+$factory->define(App\Company::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company,
+        'stand_id' => function(){
+            return factory('App\Stand')->create()->id;
+        },
+        'logo' => $faker->imageUrl(128, 128),
+        'address' => $faker->address,
+        'phone' => $faker->e164PhoneNumber,
+        'admin_name' => $faker->name,
+        'admin_email' => $faker->freeEmail
+    ];
+});
