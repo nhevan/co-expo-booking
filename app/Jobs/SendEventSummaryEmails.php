@@ -3,7 +3,9 @@
 namespace App\Jobs;
 
 use App\Event;
+use App\Mail\EventEnded;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,6 +34,9 @@ class SendEventSummaryEmails implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $this->event->stands->each(function($stand){
+            if($stand->company)
+                Mail::to($stand->company->admin_email)->send(new EventEnded($this->event));
+        });
     }
 }
