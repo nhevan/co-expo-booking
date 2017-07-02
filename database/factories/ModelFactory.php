@@ -68,3 +68,13 @@ $factory->define(App\Company::class, function (Faker\Generator $faker) {
         'admin_email' => $faker->freeEmail
     ];
 });
+
+$factory->define(App\Document::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->userName,
+        'file' => $faker->url,
+        'company_id' => function(){
+            return factory('App\Company')->create()->id;
+        },
+    ];
+});

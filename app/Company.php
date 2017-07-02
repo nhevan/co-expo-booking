@@ -16,4 +16,13 @@ class Company extends Model
     {
     	return $this->belongsTo('App\Stand');
     }
+
+    /**
+     * a company has many marketing documents
+     * @return [type] [description]
+     */
+    public function documents()
+    {
+    	return $this->hasMany('App\Document');
+    }
 }
