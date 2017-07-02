@@ -20,7 +20,7 @@ class StandTest extends TestCase
     {
     	$event = factory('App\Event')->create();
     	$stand = factory('App\Stand')->create(['event_id' => $event->id]);
-    	
+
     	$this->assertInstanceOf(BelongsTo::class, $stand->event());
     	$this->assertInstanceOf('App\Event', $stand->event);
     }
@@ -99,5 +99,21 @@ class StandTest extends TestCase
 
         $this->expectException('App\Exceptions\MultipleAssignmentException');
         $stand->assignCompany($company2);
+    }
+
+    /**
+     * @test
+     * it deletes its associated company before it deletes itself
+     */
+    public function it_deletes_its_associated_company_before_it_deletes_itself()
+    {
+        $stand = factory('App\Stand')->create();
+        $company = factory('App\Company')->create(['stand_id' => $stand->id]);
+
+        $this->assertDatabaseHas('companies', ['id' => $company->id, 'stand_id' => $stand->id]);
+
+        $stand->delete();
+
+        $this->assertDatabaseMissing('companies', ['id' => $company->id]);        
     }
 }

@@ -17,11 +17,16 @@ class Stand extends Model
 	protected static function boot()
 	{
 		parent::boot();
+
 		static::creating(function($stand){
 			$event = Event::find($stand->event_id);
 			if (!$event) {
 				throw new InvalidEventException('A Stand requires a valid Event.');
 			}
+		});
+
+		static::deleting(function($stand){
+			$stand->company()->delete();
 		});
 	}
 
