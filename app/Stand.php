@@ -10,6 +10,7 @@ use App\Exceptions\MultipleAssignmentException;
 class Stand extends Model
 {
 	protected $guarded = ['event_id', 'is_booked'];
+	protected $with = ['company'];
 
 	/**
 	 * the booting method of the model
