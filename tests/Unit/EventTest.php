@@ -41,4 +41,25 @@ class EventTest extends TestCase
 
         $this->assertDatabaseMissing('stands', ['id' => $stand->id]);
     }
+
+    /**
+     * @test
+     * it can add a stand
+     */
+    public function it_can_add_a_stand()
+    {
+        $event = factory('App\Event')->create();
+        $event->addStand([
+            'stand_number' => '3',
+            'image' => 'someimage.jpeg',
+            'description' => 'sample description',
+            'price' => '34',
+            'length' => '10',
+            'breadth' => '8',
+            'x_cord' => '0',
+            'y_cord' => '0',
+        ]);
+        $this->assertEquals(1, $event->stands()->count());
+        $this->assertDatabaseHas('stands', ['event_id' => $event->id, 'stand_number' => '3']);
+    }
 }

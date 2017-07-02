@@ -26,4 +26,9 @@ class Event extends Model
     {
     	return $this->hasMany('App\Stand');
     }
+
+    public function addStand($stand_attributes = [])
+    {
+    	$this->stands()->create($stand_attributes);
+    }
 }

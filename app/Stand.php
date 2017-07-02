@@ -8,6 +8,8 @@ use App\Exceptions\InvalidEventException;
 
 class Stand extends Model
 {
+	protected $guarded = ['event_id', 'is_booked'];
+	
 	/**
 	 * the booting method of the model
 	 */
