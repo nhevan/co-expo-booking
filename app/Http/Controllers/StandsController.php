@@ -48,14 +48,21 @@ class StandsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'logo' => 'required',
+            'logo_file' => 'required|image',
             'address' => 'required',
             'phone' => 'required',
             'admin_name' => 'required',
             'admin_email' => 'required|email'
         ]);
+        
+        $file = $request->file('logo_file');
+        $path = $request->logo_file->store('logos');
+        
+        $request->merge(['logo' => $path]);
+        $company = $request->except('logo_file');
+
         try {
-            $stand->assignCompany($request->toArray());
+            $stand->assignCompany($company);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 422);
         }
