@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('api')->get('/events', 'EventsController@index')->name('events.index');
 Route::middleware('api')->get('/events/{event}', 'EventsController@show')->name('events.show');
+Route::middleware('api')->post('/stands/{stand}/reserve', 'StandsController@reserve')->name('stands.reserve');

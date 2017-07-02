@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Stand;
+use Exception;
 use Illuminate\Http\Request;
 
 class StandsController extends Controller
@@ -36,6 +37,30 @@ class StandsController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    /**
+     * it assigns a company
+     * @param  Stand  $stand [description]
+     * @return [type]        [description]
+     */
+    public function reserve(Stand $stand, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'logo' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'admin_name' => 'required',
+            'admin_email' => 'required|email'
+        ]);
+        try {
+            $stand->assignCompany($request->toArray());
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 422);
+        }
+        
+        return response()->json(['message' => 'You have successfully reserved this stand'], 200);
     }
 
     /**
