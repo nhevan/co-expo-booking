@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Stand;
 use Illuminate\Http\Request;
 
-class StandController extends Controller
+class StandsController extends Controller
 {
     /**
      * Display a listing of the resource.
