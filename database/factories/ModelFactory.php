@@ -36,3 +36,21 @@ $factory->define(App\Event::class, function (Faker\Generator $faker) {
         'blueprint_img' => '/images/hall-map.png',
     ];
 });
+
+
+$factory->define(App\Stand::class, function (Faker\Generator $faker) {
+    return [
+        'stand_number' => $faker->numberBetween(1, 50),
+        'event_id' => function(){
+            return factory('App\Event')->create()->id;
+        },
+        'image' => $faker->imageUrl,
+        'description' => $faker->sentence(3),
+        'price' => $faker->numberBetween(200, 1000),
+        'length' => $faker->numberBetween(100, 250),
+        'breadth' => $faker->numberBetween(200, 350),
+        'x_cord' => $faker->numberBetween(10, 650),
+        'y_cord' => $faker->numberBetween(10, 380),
+        'is_booked' => false,
+    ];
+});
