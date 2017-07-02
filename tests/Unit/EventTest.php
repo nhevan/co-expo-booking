@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use App\Jobs\SendEventSummaryEmails;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -62,5 +63,16 @@ class EventTest extends TestCase
         ]);
         $this->assertEquals(1, $event->stands()->count());
         $this->assertDatabaseHas('stands', ['event_id' => $event->id, 'stand_number' => '3']);
+    }
+
+    /**
+     * @test
+     * it dispatches a job when a event is created
+     */
+    public function it_dispatches_a_job_when_a_event_is_created()
+    {
+        $this->expectsJobs(SendEventSummaryEmails::class);
+        
+        $event = factory('App\Event')->create();
     }
 }

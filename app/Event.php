@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Jobs\SendEventSummaryEmails;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -16,6 +17,14 @@ class Event extends Model
 		static::deleting(function($event){
 			$event->stands->each->delete();
 		});
+
+		static::created(function($event){
+        	$job = (new SendEventSummaryEmails($event))
+        		   ->onQueue('event_summary')
+        		   ->delay($event->end_date);
+        		   
+        	dispatch($job);
+        });
 	}
 
 	/**
