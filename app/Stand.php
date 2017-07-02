@@ -9,7 +9,7 @@ use App\Exceptions\InvalidEventException;
 class Stand extends Model
 {
 	protected $guarded = ['event_id', 'is_booked'];
-	
+
 	/**
 	 * the booting method of the model
 	 */
@@ -31,5 +31,25 @@ class Stand extends Model
 	public function event()
 	{
 		return $this->belongsTo('App\Event');
+	}
+
+	/**
+	 * it has one owner company
+	 * @return [type] [description]
+	 */
+	public function company()
+	{
+		return $this->hasOne('App\Company');
+	}
+	/**
+	 * it can assign a company to itself and changes it is_booked status
+	 * @param  array  $company_attributes [description]
+	 * @return [type]                     [description]
+	 */
+	public function assignCompany($company_attributes = [])
+	{
+		$this->company()->create($company_attributes);
+		$this->is_booked = true;
+		return $this->save();
 	}
 }
