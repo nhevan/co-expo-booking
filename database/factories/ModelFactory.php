@@ -22,3 +22,17 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Event::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'short_address' => $faker->streetAddress,
+        'address' => $faker->address,
+        'info' => $faker->sentence(2),
+        'start_date' => $faker->dateTime,
+        'end_date' => $faker->dateTime,
+        'latitude' => $faker->latitude(40.713040, 40.719050),
+        'longitude' => $faker->longitude(-74.003000, -74.009000),
+        'blueprint_img' => '/images/hall-map.png',
+    ];
+});
