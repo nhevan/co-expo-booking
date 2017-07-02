@@ -19,6 +19,7 @@ class EventTest extends TestCase
     {
     	$event = factory('App\Event')->create();
     	$stand = factory('App\Stand')->create(['event_id' => $event->id]);
+    	
         $this->assertInstanceOf(HasMany::class, $event->stands());
         $this->assertInstanceOf('App\Stand', $event->stands->first());
     	$this->assertEquals($event->stands()->first()->id, $stand->id);

@@ -5,6 +5,7 @@ namespace App;
 use App\Event;
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InvalidEventException;
+use App\Exceptions\MultipleAssignmentException;
 
 class Stand extends Model
 {
@@ -48,8 +49,13 @@ class Stand extends Model
 	 */
 	public function assignCompany($company_attributes = [])
 	{
+		if ($this->is_booked) {
+			throw new MultipleAssignmentException('A stand can not be assigned to multiple companies.');
+		}
+
 		$this->company()->create($company_attributes);
 		$this->is_booked = true;
+
 		return $this->save();
 	}
 }

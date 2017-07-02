@@ -20,6 +20,7 @@ class StandTest extends TestCase
     {
     	$event = factory('App\Event')->create();
     	$stand = factory('App\Stand')->create(['event_id' => $event->id]);
+    	
     	$this->assertInstanceOf(BelongsTo::class, $stand->event());
     	$this->assertInstanceOf('App\Event', $stand->event);
     }
@@ -41,9 +42,12 @@ class StandTest extends TestCase
     public function it_may_or_may_not_have_a_associated_company()
     {
         $stand = factory('App\Stand')->create();
+
         $this->assertInstanceOf(HasOne::class, $stand->company());
         $this->assertEquals(0, $stand->company()->count());
+
         $company = factory('App\Company')->create(['stand_id' => $stand->id]);
+
         $this->assertEquals(1, $stand->company()->count());
         $this->assertNotEquals(0, $stand->company()->count());
     }
@@ -56,12 +60,15 @@ class StandTest extends TestCase
     {
         $stand = factory('App\Stand')->create();
         $company = factory('App\Company')->make()->toArray();
+
         $this->assertDatabaseMissing('companies', ['stand_id' => $stand->id]);
+
         $stand->assignCompany($company);
+
         $this->assertInstanceOf('App\Company', $stand->company);
         $this->assertDatabaseHas('companies', ['stand_id' => $stand->id]);
     }
-    
+
     /**
      * @test
      * it changes is booked status when it assigns a company
@@ -70,8 +77,27 @@ class StandTest extends TestCase
     {
         $stand = factory('App\Stand')->create();
         $company = factory('App\Company')->make()->toArray();
+
         $this->assertEquals(false, $stand->is_booked);
+
         $stand->assignCompany($company);
+
         $this->assertEquals(true, $stand->is_booked);
+    }
+
+    /**
+     * @test
+     * it throws exception when a booked stand tries to assign a company
+     */
+    public function it_throws_exception_when_a_booked_stand_tries_to_assign_a_company()
+    {
+        $stand = factory('App\Stand')->create();
+        $company = factory('App\Company')->make()->toArray();
+        $company2 = factory('App\Company')->make()->toArray();
+
+        $stand->assignCompany($company);
+
+        $this->expectException('App\Exceptions\MultipleAssignmentException');
+        $stand->assignCompany($company2);
     }
 }
