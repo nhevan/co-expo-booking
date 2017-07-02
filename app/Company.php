@@ -9,6 +9,18 @@ class Company extends Model
     protected $guarded = ['stand_id'];
 
     /**
+     * the booting method of the model
+     */
+    protected static function boot()
+	{
+		parent::boot();
+	
+		static::deleting(function($company){
+			$company->documents->each->delete();
+		});
+	}
+
+    /**
 	 * a company belongs to a stand
 	 * @return [type] [description]
 	 */

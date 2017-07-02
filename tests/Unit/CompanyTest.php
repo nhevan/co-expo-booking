@@ -32,7 +32,22 @@ class CompanyTest extends TestCase
     public function a_company_has_many_documents()
     {
         $company = factory('App\Company')->create();
-        
+
         $this->assertInstanceOf(HasMany::class, $company->documents());
+    }
+
+    /**
+     * @test
+     * it deletes all its marketing documents before deleting itself
+     */
+    public function it_deletes_all_its_marketing_documents_before_deleting_itself()
+    {
+        $company = factory('App\Company')->create();
+        $document = factory('App\Document')->create(['company_id' => $company->id]);
+
+        $this->assertDatabaseHas('documents', ['id' => $document->id, 'company_id' => $company->id]);
+        
+        $company->delete();
+        $this->assertDatabaseMissing('documents', ['id' => $document->id, 'company_id' => $company->id]);
     }
 }
