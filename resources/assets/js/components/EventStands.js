@@ -1,30 +1,57 @@
 import React from 'react';
 import Stand from './Stand';
 import StandDetail from './StandDetail';
-import { Modal, Button } from 'react-bootstrap';
+import BookingDetail from './BookingDetail'
+import { Modal, Button, Collapse, Well } from 'react-bootstrap';
 
 export default class EventStands extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showModal: false,
-			selectedStand : []
+			showReserveModal: false,
+			showCompanyDetail: false,
+			selectedStand : [],
+			bookingCompany : []
+		}
+	}
+
+	loadAppropriateModal(e){
+		console.log('clicked on a stand');
+		e.preventDefault();
+
+		var selected_stand_index = e.target.getAttribute('data-selected-stand-index');
+		var selected_stand_is_booked = e.target.getAttribute('data-is-booked');
+
+		if (selected_stand_is_booked == 1) {
+			this.setState(
+				{ 
+					showCompanyDetail: !this.state.showCompanyDetail,
+					bookingCompany: this.props.stands[selected_stand_index].company
+				}
+			);
+		}else{
+			this.setState({
+				selectedStand: this.props.stands[selected_stand_index],
+				showCompanyDetail: false
+			});
+			this.openReserveModal();
 		}
 	}
 
 	renderStands(stands){
 		if (stands.length > 0) {
-			return stands.map((stand) => (
-	            <rect onClick={(e) => this.loadStandDetailModal(e)} 
+			return stands.map((stand, index) => {
+	            return <rect onClick={(e) => this.loadAppropriateModal(e)} 
 	            	  className="stands" 
-	            	  key={stand.id} 
+	            	  key={index} 
 	            	  width={stand.breadth + 'px'} 
 	            	  height={stand.length + 'px'} 
 	            	  x={stand.x_cord + 'px'} 
 	            	  y={stand.y_cord + 'px'}
-	            	  data-selected-stand={stand}>
+	            	  data-selected-stand-index={index}
+	            	  data-is-booked={stand.is_booked}>
         	    </rect>
-	        ));
+	        });
 	    }
 	    else return [];
 	}
@@ -71,23 +98,13 @@ export default class EventStands extends React.Component {
 		else return [];
 	}
 
-	closeModal(){
-		this.setState({ showModal: false });
+	closeReserveModal(){
+		this.setState({ showReserveModal: false });
 	}
 
-	openModal(){
+	openReserveModal(){
 		console.log('closing modal ...');
-	    this.setState({ showModal: true });
-	}
-
-	loadStandDetailModal(e){
-		console.log('clicked on a stand');
-		e.preventDefault();
-		var selected_stand = e.target.getAttribute('data-selected-stand');
-		this.setState({
-			selectedStand: selected_stand
-		});
-		this.openModal();
+	    this.setState({ showReserveModal: true });
 	}
 
 	render() {
@@ -101,7 +118,7 @@ export default class EventStands extends React.Component {
 					{ infos }
 					{ stand_statuses }
 				</svg>
-				<Modal show={this.state.showModal} onHide={() => this.closeModal()}>
+				<Modal show={this.state.showReserveModal} onHide={() => this.closeReserveModal()}>
 					<Modal.Header closeButton>
 			            <Modal.Title>Stand Detail</Modal.Title>
 					</Modal.Header>
@@ -109,9 +126,16 @@ export default class EventStands extends React.Component {
 			            <StandDetail stand={this.state.selectedStand} />
 		            </Modal.Body>
 		            <Modal.Footer>
-						<Button onClick={() => this.closeModal()}>Close</Button>
+						<Button onClick={() => this.closeReserveModal()}>Close</Button>
 					</Modal.Footer>
 				</Modal>
+				<Collapse in={this.state.showCompanyDetail}>
+					<div>
+						<Well>
+							<BookingDetail company={this.state.bookingCompany} />
+						</Well>
+					</div>
+				</Collapse>
 			</div>
 		);
 	}

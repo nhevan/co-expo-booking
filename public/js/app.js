@@ -61583,7 +61583,8 @@ var ExpositionHallMap = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Stand__ = __webpack_require__(339);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__StandDetail__ = __webpack_require__(340);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_bootstrap__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__BookingDetail__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_bootstrap__ = __webpack_require__(341);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61591,6 +61592,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -61606,29 +61608,54 @@ var EventStands = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (EventStands.__proto__ || Object.getPrototypeOf(EventStands)).call(this, props));
 
 		_this.state = {
-			showModal: false,
-			selectedStand: []
+			showReserveModal: false,
+			showCompanyDetail: false,
+			selectedStand: [],
+			bookingCompany: []
 		};
 		return _this;
 	}
 
 	_createClass(EventStands, [{
+		key: 'loadAppropriateModal',
+		value: function loadAppropriateModal(e) {
+			console.log('clicked on a stand');
+			e.preventDefault();
+
+			var selected_stand_index = e.target.getAttribute('data-selected-stand-index');
+			var selected_stand_is_booked = e.target.getAttribute('data-is-booked');
+
+			if (selected_stand_is_booked == 1) {
+				this.setState({
+					showCompanyDetail: !this.state.showCompanyDetail,
+					bookingCompany: this.props.stands[selected_stand_index].company
+				});
+			} else {
+				this.setState({
+					selectedStand: this.props.stands[selected_stand_index],
+					showCompanyDetail: false
+				});
+				this.openReserveModal();
+			}
+		}
+	}, {
 		key: 'renderStands',
 		value: function renderStands(stands) {
 			var _this2 = this;
 
 			if (stands.length > 0) {
-				return stands.map(function (stand) {
+				return stands.map(function (stand, index) {
 					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { onClick: function onClick(e) {
-							return _this2.loadStandDetailModal(e);
+							return _this2.loadAppropriateModal(e);
 						},
 						className: 'stands',
-						key: stand.id,
+						key: index,
 						width: stand.breadth + 'px',
 						height: stand.length + 'px',
 						x: stand.x_cord + 'px',
 						y: stand.y_cord + 'px',
-						'data-selected-stand': stand });
+						'data-selected-stand-index': index,
+						'data-is-booked': stand.is_booked });
 				});
 			} else return [];
 		}
@@ -61686,26 +61713,15 @@ var EventStands = function (_React$Component) {
 			} else return [];
 		}
 	}, {
-		key: 'closeModal',
-		value: function closeModal() {
-			this.setState({ showModal: false });
+		key: 'closeReserveModal',
+		value: function closeReserveModal() {
+			this.setState({ showReserveModal: false });
 		}
 	}, {
-		key: 'openModal',
-		value: function openModal() {
+		key: 'openReserveModal',
+		value: function openReserveModal() {
 			console.log('closing modal ...');
-			this.setState({ showModal: true });
-		}
-	}, {
-		key: 'loadStandDetailModal',
-		value: function loadStandDetailModal(e) {
-			console.log('clicked on a stand');
-			e.preventDefault();
-			var selected_stand = e.target.getAttribute('data-selected-stand');
-			this.setState({
-				selectedStand: selected_stand
-			});
-			this.openModal();
+			this.setState({ showReserveModal: true });
 		}
 	}, {
 		key: 'render',
@@ -61726,33 +61742,46 @@ var EventStands = function (_React$Component) {
 					stand_statuses
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_3_react_bootstrap__["b" /* Modal */],
-					{ show: this.state.showModal, onHide: function onHide() {
-							return _this3.closeModal();
+					__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */],
+					{ show: this.state.showReserveModal, onHide: function onHide() {
+							return _this3.closeReserveModal();
 						} },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_3_react_bootstrap__["b" /* Modal */].Header,
+						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */].Header,
 						{ closeButton: true },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							__WEBPACK_IMPORTED_MODULE_3_react_bootstrap__["b" /* Modal */].Title,
+							__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */].Title,
 							null,
 							'Stand Detail'
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_3_react_bootstrap__["b" /* Modal */].Body,
+						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */].Body,
 						null,
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__StandDetail__["a" /* default */], { stand: this.state.selectedStand })
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_3_react_bootstrap__["b" /* Modal */].Footer,
+						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */].Footer,
 						null,
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							__WEBPACK_IMPORTED_MODULE_3_react_bootstrap__["a" /* Button */],
+							__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["a" /* Button */],
 							{ onClick: function onClick() {
-									return _this3.closeModal();
+									return _this3.closeReserveModal();
 								} },
 							'Close'
+						)
+					)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["b" /* Collapse */],
+					{ 'in': this.state.showCompanyDetail },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						null,
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["d" /* Well */],
+							null,
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__BookingDetail__["a" /* default */], { company: this.state.bookingCompany })
 						)
 					)
 				)
@@ -61832,7 +61861,15 @@ var StandDetail = function (_React$Component) {
 	_createClass(StandDetail, [{
 		key: 'render',
 		value: function render() {
-			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null);
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h3',
+					null,
+					'Stand detail component'
+				)
+			);
 		}
 	}]);
 
@@ -61875,7 +61912,7 @@ var StandDetail = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__Col__ = __webpack_require__(392);
 /* unused harmony reexport Col */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__Collapse__ = __webpack_require__(118);
-/* unused harmony reexport Collapse */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_14__Collapse__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__Dropdown__ = __webpack_require__(76);
 /* unused harmony reexport Dropdown */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__DropdownButton__ = __webpack_require__(412);
@@ -61911,7 +61948,7 @@ var StandDetail = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__MenuItem__ = __webpack_require__(432);
 /* unused harmony reexport MenuItem */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__Modal__ = __webpack_require__(433);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_32__Modal__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_32__Modal__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ModalBody__ = __webpack_require__(196);
 /* unused harmony reexport ModalBody */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ModalFooter__ = __webpack_require__(197);
@@ -61979,7 +62016,7 @@ var StandDetail = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_65__Tooltip__ = __webpack_require__(475);
 /* unused harmony reexport Tooltip */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_66__Well__ = __webpack_require__(476);
-/* unused harmony reexport Well */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_66__Well__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_67__utils__ = __webpack_require__(477);
 /* unused harmony reexport utils */
 
@@ -72843,7 +72880,7 @@ var Well = function (_React$Component) {
   return Well;
 }(__WEBPACK_IMPORTED_MODULE_6_react___default.a.Component);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_7__utils_bootstrapUtils__["a" /* bsClass */]('well', __WEBPACK_IMPORTED_MODULE_7__utils_bootstrapUtils__["b" /* bsSizes */]([__WEBPACK_IMPORTED_MODULE_8__utils_StyleConfig__["c" /* Size */].LARGE, __WEBPACK_IMPORTED_MODULE_8__utils_StyleConfig__["c" /* Size */].SMALL], Well)));
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_7__utils_bootstrapUtils__["a" /* bsClass */]('well', __WEBPACK_IMPORTED_MODULE_7__utils_bootstrapUtils__["b" /* bsSizes */]([__WEBPACK_IMPORTED_MODULE_8__utils_StyleConfig__["c" /* Size */].LARGE, __WEBPACK_IMPORTED_MODULE_8__utils_StyleConfig__["c" /* Size */].SMALL], Well)));
 
 /***/ }),
 /* 477 */
@@ -72868,6 +72905,62 @@ var Well = function (_React$Component) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 479 */,
+/* 480 */,
+/* 481 */,
+/* 482 */,
+/* 483 */,
+/* 484 */,
+/* 485 */,
+/* 486 */,
+/* 487 */,
+/* 488 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var BookingDetail = function (_React$Component) {
+	_inherits(BookingDetail, _React$Component);
+
+	function BookingDetail(props) {
+		_classCallCheck(this, BookingDetail);
+
+		return _possibleConstructorReturn(this, (BookingDetail.__proto__ || Object.getPrototypeOf(BookingDetail)).call(this, props));
+	}
+
+	_createClass(BookingDetail, [{
+		key: 'render',
+		value: function render() {
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h3',
+					null,
+					'Stand booked by ',
+					this.props.company.name
+				)
+			);
+		}
+	}]);
+
+	return BookingDetail;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (BookingDetail);
 
 /***/ })
 /******/ ]);

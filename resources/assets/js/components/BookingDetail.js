@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class StandDetail extends React.Component {
+export default class BookingDetail extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -8,7 +8,7 @@ export default class StandDetail extends React.Component {
 	render() {
 		return (
 			<div>
-				<h3>Stand detail component</h3>
+				<h3>Stand booked by {this.props.company.name}</h3>
 			</div>
 		);
 	}
