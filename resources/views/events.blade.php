@@ -9,7 +9,6 @@
 
                 <div class="panel-body">
                     <div id="event-map"></div>
-                    Map loads here.
                 </div>
             </div>
         </div>
