@@ -19,6 +19,10 @@ Route::get('/hall-map/{event}', function () {
     return view('hall_map');
 });
 
+Route::get('/stands/{stand}/reserve', function(){
+	return view('reserve_stand');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

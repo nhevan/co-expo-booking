@@ -18298,6 +18298,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EventMap__ = __webpack_require__(335);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_ExpositionHallMap__ = __webpack_require__(337);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_ReserveStand__ = __webpack_require__(489);
 
 __webpack_require__(211);
 
@@ -18307,13 +18308,20 @@ __webpack_require__(211);
 
 
 
+
 if (document.getElementById('event-map')) {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_EventMap__["a" /* default */], null), document.getElementById('event-map'));
+	__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_EventMap__["a" /* default */], null), document.getElementById('event-map'));
 }
 
 if (document.getElementById('exposition-hall-map')) {
-  var event_id = window.location.pathname.split('/')[2];
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_ExpositionHallMap__["a" /* default */], { event_id: event_id }), document.getElementById('exposition-hall-map'));
+	var event_id = window.location.pathname.split('/')[2];
+	__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_ExpositionHallMap__["a" /* default */], { event_id: event_id }), document.getElementById('exposition-hall-map'));
+}
+
+if (document.getElementById('reserve-stand')) {
+	var stand_id = window.location.pathname.split('/')[2];
+
+	__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_ReserveStand__["a" /* default */], { stand_id: stand_id }), document.getElementById('reserve-stand'));
 }
 
 /***/ }),
@@ -61859,15 +61867,36 @@ var StandDetail = function (_React$Component) {
 	}
 
 	_createClass(StandDetail, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
+			var reserve_url = "/stands/" + this.props.stand.id + "/reserve";
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'div',
+				"div",
 				null,
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'h3',
+					"h5",
 					null,
-					'Stand detail component'
+					"Stand # ",
+					this.props.stand.stand_number,
+					" ",
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						"small",
+						null,
+						"$",
+						this.props.stand.price,
+						"/day"
+					)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { width: "100%", src: this.props.stand.image, alt: "Stand photo" }),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"p",
+					null,
+					this.props.stand.description
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"a",
+					{ href: reserve_url, className: "btn btn-primary" },
+					"Reserve"
 				)
 			);
 		}
@@ -73005,6 +73034,52 @@ var BookingDetail = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["a"] = (BookingDetail);
+
+/***/ }),
+/* 489 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var ReserveStand = function (_React$Component) {
+	_inherits(ReserveStand, _React$Component);
+
+	function ReserveStand(props) {
+		_classCallCheck(this, ReserveStand);
+
+		return _possibleConstructorReturn(this, (ReserveStand.__proto__ || Object.getPrototypeOf(ReserveStand)).call(this, props));
+	}
+
+	_createClass(ReserveStand, [{
+		key: 'render',
+		value: function render() {
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h3',
+					null,
+					'Reserve stand component ready to be implemented'
+				)
+			);
+		}
+	}]);
+
+	return ReserveStand;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (ReserveStand);
 
 /***/ })
 /******/ ]);

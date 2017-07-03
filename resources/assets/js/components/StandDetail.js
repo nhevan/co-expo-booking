@@ -6,9 +6,14 @@ export default class StandDetail extends React.Component {
 	}
 
 	render() {
+		var reserve_url = `/stands/${this.props.stand.id}/reserve`;
 		return (
 			<div>
-				<h3>Stand detail component</h3>
+				<h5>Stand # {this.props.stand.stand_number} <small>${this.props.stand.price}/day</small></h5>
+				<img width="100%" src={this.props.stand.image} alt="Stand photo"/>
+				<p>{this.props.stand.description}</p>
+
+				<a href={reserve_url} className="btn btn-primary">Reserve</a>
 			</div>
 		);
 	}
