@@ -98,7 +98,7 @@ export default class EventMap extends React.Component {
 	    return (
 	      	<div className='text-center'>
 		      	<div ref="mapView" style={mapStyle}></div>
-		      	<a disabled={!this.state.isEventClicked} href={"/events/" + this.state.eventId} className="btn btn-primary">Book your place</a>
+		      	<a disabled={!this.state.isEventClicked} href={"/hall-map/" + this.state.eventId} className="btn btn-primary">Book your place</a>
 	      	</div>
 	    );
 	}

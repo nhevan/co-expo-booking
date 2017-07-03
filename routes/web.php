@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('events');
 });
 
+Route::get('/hall-map/{event}', function () {
+    return view('hall_map');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
