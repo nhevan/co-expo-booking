@@ -74,21 +74,20 @@ class StandReservationTest extends TestCase
 
     /**
      * @test
-     * it can upload multiple documents
+     * it can upload single document
      */
-    public function it_can_upload_multiple_documents()
+    public function it_can_upload_single_document()
     {
         Storage::fake('local');
-        $doc1 = UploadedFile::fake()->image('document1.txt');
-        $doc2 = UploadedFile::fake()->image('document2.txt');
-        $documents = [$doc1, $doc2];
+        $file = UploadedFile::fake()->image('document1.txt');
+        $document = factory('App\Document')->make(['file' => $file])->toArray();
+
         $company = factory('App\Company')->create();
 
-        $this->post("/api/companies/{$company->id}/upload-document", $documents);
+        $this->post("/api/companies/{$company->id}/upload-document", $document);
 
-        Storage::disk('local')->assertExists("public/documents/{$doc1->hashName()}");
-        Storage::disk('local')->assertExists("public/documents/{$doc2->hashName()}");
+        Storage::disk('local')->assertExists("public/documents/{$file->hashName()}");
         
-        $this->assertDatabaseHas('documents', [ 'company_id' => $company->id, 'file' => "/documents/{$doc1->hashName()}"]);
+        $this->assertDatabaseHas('documents', [ 'company_id' => $company->id, 'file' => "/documents/{$file->hashName()}"]);
     }
 }

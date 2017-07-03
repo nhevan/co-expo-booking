@@ -11,9 +11,13 @@ export default class ReserveStand extends React.Component {
 			address: '',
 			phone: '',
 			admin_name: '',
-			admin_email: ''
+			admin_email: '',
+			document : [],
+			document_upload_holder: []
 		};
 		this.handleLogoFileChange = this.handleLogoFileChange.bind(this);
+		this.handleDocumentsFileChange = this.handleDocumentsFileChange.bind(this);
+		this.uploadCompanyDocuments = this.uploadCompanyDocuments.bind(this);
 	}
 
 	handleCompanyNameChange(e) {
@@ -34,6 +38,9 @@ export default class ReserveStand extends React.Component {
 	handleLogoFileChange(e){
 		this.setState({ logo_file:e.target.files[0] })
 	}
+	handleDocumentsFileChange(e){
+ 		this.setState({ document: this.state.document.concat([e.target.files[0]]) })
+ 	}
 
 	confirmReservation(e){
 		e.preventDefault();
@@ -57,12 +64,56 @@ export default class ReserveStand extends React.Component {
 		axios.post(endpoint, formData, config)
 				.then((response) => {
 					console.log(response.data);
+					this.uploadCompanyDocuments(response.data.company_id);
+
 					window.location.href = `/hall-map/${response.data.event_id}`;
 				})
 				.catch(function (error) {
-					console.log(error.response.data);
+					console.log(error);
 				});;
 	}
+
+	uploadCompanyDocuments(company_id) {
+		this.state.document.forEach((document) => {
+			this.uploadDocument(document, company_id);
+		})(company_id);
+	}
+
+	uploadDocument(document, company_id){
+        var endpoint = `/api/companies/${company_id}/upload-document`;
+		const formData = new FormData();
+	    const config = {
+	        headers: {
+	            'content-type': 'multipart/form-data',
+	            'Accept': 'application/json'
+	        }
+        }
+	    
+	    formData.append('file',document);
+		axios.post(endpoint, formData, config)
+				.then((response) => {
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					console.log(error.response.data);
+				});
+	}
+
+	addDocument(e){
+ 		e.preventDefault();
+ 		var doc_form = <FormGroup>
+ 				          <ControlLabel>Company Document # {this.state.document_upload_holder.length + 1}</ControlLabel>
+ 				          <FormControl
+ 				            type="file"
+ 				            placeholder="Please select you company documents to upload"
+ 				            onChange={this.handleDocumentsFileChange}
+ 				          />
+ 				          <FormControl.Feedback />
+ 				        </FormGroup>
+ 		this.setState({
+ 			document_upload_holder: this.state.document_upload_holder.concat(doc_form)
+ 		});
+ 	}
 
 	render() {
 		return (
@@ -144,6 +195,15 @@ export default class ReserveStand extends React.Component {
 		          />
 		          <FormControl.Feedback />
 		        </FormGroup>
+		        <hr/>
+		        	<h3>Company Documents
+			        	<Button type="submit" onClick={(e)=>(this.addDocument(e))} className="btn-sm btn-primary pull-right">
+					    	Add Document
+					    </Button>
+				    </h3>
+		        <hr/>
+
+		        { this.state.document_upload_holder }
 
 		        <Button type="submit" onClick={(e)=>(this.confirmReservation(e))} className="btn-primary pull-right">
 			    	Confirm Reservation

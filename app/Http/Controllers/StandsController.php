@@ -60,15 +60,15 @@ class StandsController extends Controller
         $filename = explode("/",$path)[2];
         
         $request->merge(['logo' => "/logos/{$filename}" ]);
-        $company = $request->except('logo_file');
+        $company_attribute = $request->except('logo_file');
 
         try {
-            $stand->assignCompany($company);
+            $company = $stand->assignCompany($company_attribute);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 422);
         }
         
-        return response()->json(['message' => 'You have successfully reserved this stand', 'event_id' => $stand->event->id], 200);
+        return response()->json(['message' => 'You have successfully reserved this stand', 'event_id' => $stand->event->id, 'company_id'=>$company->id ], 200);
     }
 
     /**

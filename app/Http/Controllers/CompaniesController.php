@@ -93,12 +93,20 @@ class CompaniesController extends Controller
      */
     public function saveDocuments(Request $request, Company $company)
     {
-        foreach ($request->files as $document) {
-            $filename = $this->uploadFile($document);
-            $new_document = new Document(['name' => $document->name, 'file' => "/documents/{$filename}"]);
-            
-            $company->documents()->save($new_document);
+        $path = $request->file->store('public/documents');
+        $filename = explode("/",$path)[2];
+
+        try {
+            $document = new Document;
+            $document->name = $request->file->getClientOriginalName();
+            $document->file = "/documents/{$filename}";
+
+            $company->documents()->save($document);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 422);
         }
+
+        return response()->json(['message' => 'Company document successfully uploaded.'], 200);
     }
 
     /**

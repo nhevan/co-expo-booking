@@ -59,9 +59,11 @@ class Stand extends Model
 			throw new MultipleAssignmentException('A stand can not be assigned to multiple companies.');
 		}
 
-		$this->company()->create($company_attributes);
+		$company = $this->company()->create($company_attributes);
 		$this->is_booked = true;
 
-		return $this->save();
+		$this->save();
+
+		return $company;
 	}
 }

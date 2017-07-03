@@ -62215,65 +62215,91 @@ var BookingDetail = function (_React$Component) {
 	function BookingDetail(props) {
 		_classCallCheck(this, BookingDetail);
 
-		return _possibleConstructorReturn(this, (BookingDetail.__proto__ || Object.getPrototypeOf(BookingDetail)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (BookingDetail.__proto__ || Object.getPrototypeOf(BookingDetail)).call(this, props));
+
+		_this.getCompanyDocuments = _this.getCompanyDocuments.bind(_this);
+		return _this;
 	}
 
 	_createClass(BookingDetail, [{
-		key: "getCompanyDocuments",
+		key: 'getCompanyDocuments',
 		value: function getCompanyDocuments() {
 			console.log(this.props.company.documents);
+			if (this.props.company.length != 0) {
+				console.log('ball');
+				console.log(this.props.company.documents);
+				if (this.props.company.documents.length != 0) {
+					return this.props.company.documents.map(function (document, index) {
+						return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							null,
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'a',
+								{ href: document.file, target: '_blank', key: index, download: true },
+								document.name
+							)
+						);
+					});
+				} else {
+					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'span',
+						null,
+						'This company have not uploaded any documents.'
+					);
+				}
+			}
 		}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
 			var documents = this.getCompanyDocuments();
+			var imgStyle = {
+				'maxWidth': '200px'
+			};
+
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				"div",
+				'div',
 				null,
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"h3",
+					'h3',
 					null,
-					"Stand booked by ",
+					'Stand booked by ',
 					this.props.company.name
 				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: this.props.company.logo, alt: "company logo" }),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.props.company.logo, alt: 'company logo', style: imgStyle }),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"p",
+					'p',
 					null,
-					"Address: ",
+					'Address: ',
 					this.props.company.address
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"p",
+					'p',
 					null,
-					"Phone: ",
+					'Phone: ',
 					this.props.company.phone
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"p",
+					'p',
 					null,
-					"Admin Name: ",
+					'Admin Name: ',
 					this.props.company.admin_name
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"p",
+					'p',
 					null,
-					"Admin Email: ",
+					'Admin Email: ',
 					this.props.company.admin_email
 				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"h4",
+					'h4',
 					null,
-					"Documents"
+					'Documents'
 				),
 				documents,
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"span",
-					null,
-					"... coming soon ..."
-				)
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+				documents
 			);
 		}
 	}]);
@@ -73063,9 +73089,13 @@ var ReserveStand = function (_React$Component) {
 			address: '',
 			phone: '',
 			admin_name: '',
-			admin_email: ''
+			admin_email: '',
+			document: [],
+			document_upload_holder: []
 		};
 		_this.handleLogoFileChange = _this.handleLogoFileChange.bind(_this);
+		_this.handleDocumentsFileChange = _this.handleDocumentsFileChange.bind(_this);
+		_this.uploadCompanyDocuments = _this.uploadCompanyDocuments.bind(_this);
 		return _this;
 	}
 
@@ -73100,8 +73130,15 @@ var ReserveStand = function (_React$Component) {
 			this.setState({ logo_file: e.target.files[0] });
 		}
 	}, {
+		key: 'handleDocumentsFileChange',
+		value: function handleDocumentsFileChange(e) {
+			this.setState({ document: this.state.document.concat([e.target.files[0]]) });
+		}
+	}, {
 		key: 'confirmReservation',
 		value: function confirmReservation(e) {
+			var _this2 = this;
+
 			e.preventDefault();
 			console.log('confirming reservation');
 
@@ -73122,15 +73159,69 @@ var ReserveStand = function (_React$Component) {
 			var endpoint = '/api/stands/' + this.props.stand_id + '/reserve';
 			axios.post(endpoint, formData, config).then(function (response) {
 				console.log(response.data);
+				_this2.uploadCompanyDocuments(response.data.company_id);
+
 				window.location.href = '/hall-map/' + response.data.event_id;
 			}).catch(function (error) {
-				console.log(error.response.data);
+				console.log(error);
 			});;
+		}
+	}, {
+		key: 'uploadCompanyDocuments',
+		value: function uploadCompanyDocuments(company_id) {
+			var _this3 = this;
+
+			this.state.document.forEach(function (document) {
+				_this3.uploadDocument(document, company_id);
+			})(company_id);
+		}
+	}, {
+		key: 'uploadDocument',
+		value: function uploadDocument(document, company_id) {
+			var endpoint = '/api/companies/' + company_id + '/upload-document';
+			var formData = new FormData();
+			var config = {
+				headers: {
+					'content-type': 'multipart/form-data',
+					'Accept': 'application/json'
+				}
+			};
+
+			formData.append('file', document);
+			axios.post(endpoint, formData, config).then(function (response) {
+				console.log(response.data);
+			}).catch(function (error) {
+				console.log(error.response.data);
+			});
+		}
+	}, {
+		key: 'addDocument',
+		value: function addDocument(e) {
+			e.preventDefault();
+			var doc_form = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+					null,
+					'Company Document # ',
+					this.state.document_upload_holder.length + 1
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+					type: 'file',
+					placeholder: 'Please select you company documents to upload',
+					onChange: this.handleDocumentsFileChange
+				}),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+			);
+			this.setState({
+				document_upload_holder: this.state.document_upload_holder.concat(doc_form)
+			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this2 = this;
+			var _this4 = this;
 
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'form',
@@ -73150,7 +73241,7 @@ var ReserveStand = function (_React$Component) {
 						value: this.state.name,
 						placeholder: 'Please enter your company name',
 						onChange: function onChange(e) {
-							return _this2.handleCompanyNameChange(e);
+							return _this4.handleCompanyNameChange(e);
 						}
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
@@ -73188,7 +73279,7 @@ var ReserveStand = function (_React$Component) {
 						value: this.state.address,
 						placeholder: 'Please enter company address',
 						onChange: function onChange(e) {
-							return _this2.handleAddressChange(e);
+							return _this4.handleAddressChange(e);
 						}
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
@@ -73208,7 +73299,7 @@ var ReserveStand = function (_React$Component) {
 						value: this.state.phone,
 						placeholder: 'Please enter company phone number',
 						onChange: function onChange(e) {
-							return _this2.handlePhoneChange(e);
+							return _this4.handlePhoneChange(e);
 						}
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
@@ -73228,7 +73319,7 @@ var ReserveStand = function (_React$Component) {
 						value: this.state.admin_name,
 						placeholder: 'Please enter company admin name',
 						onChange: function onChange(e) {
-							return _this2.handleAdminNameChange(e);
+							return _this4.handleAdminNameChange(e);
 						}
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
@@ -73248,15 +73339,30 @@ var ReserveStand = function (_React$Component) {
 						value: this.state.admin_email,
 						placeholder: 'Please enter company admin email address',
 						onChange: function onChange(e) {
-							return _this2.handleAdminEmailChange(e);
+							return _this4.handleAdminEmailChange(e);
 						}
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
 				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h3',
+					null,
+					'Company Documents',
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Button */],
+						{ type: 'submit', onClick: function onClick(e) {
+								return _this4.addDocument(e);
+							}, className: 'btn-sm btn-primary pull-right' },
+						'Add Document'
+					)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+				this.state.document_upload_holder,
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Button */],
 					{ type: 'submit', onClick: function onClick(e) {
-							return _this2.confirmReservation(e);
+							return _this4.confirmReservation(e);
 						}, className: 'btn-primary pull-right' },
 					'Confirm Reservation'
 				)
