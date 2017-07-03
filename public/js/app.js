@@ -61750,26 +61750,26 @@ var EventStands = function (_React$Component) {
 					stand_statuses
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */],
+					__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["f" /* Modal */],
 					{ show: this.state.showReserveModal, onHide: function onHide() {
 							return _this3.closeReserveModal();
 						} },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */].Header,
+						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["f" /* Modal */].Header,
 						{ closeButton: true },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */].Title,
+							__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["f" /* Modal */].Title,
 							null,
 							'Stand Detail'
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */].Body,
+						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["f" /* Modal */].Body,
 						null,
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__StandDetail__["a" /* default */], { stand: this.state.selectedStand })
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["c" /* Modal */].Footer,
+						__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["f" /* Modal */].Footer,
 						null,
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["a" /* Button */],
@@ -61787,7 +61787,7 @@ var EventStands = function (_React$Component) {
 						'div',
 						null,
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["d" /* Well */],
+							__WEBPACK_IMPORTED_MODULE_4_react_bootstrap__["g" /* Well */],
 							null,
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__BookingDetail__["a" /* default */], { company: this.state.bookingCompany })
 						)
@@ -61937,7 +61937,7 @@ var StandDetail = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Clearfix__ = __webpack_require__(390);
 /* unused harmony reexport Clearfix */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ControlLabel__ = __webpack_require__(391);
-/* unused harmony reexport ControlLabel */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_12__ControlLabel__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__Col__ = __webpack_require__(392);
 /* unused harmony reexport Col */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__Collapse__ = __webpack_require__(118);
@@ -61951,9 +61951,9 @@ var StandDetail = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__Form__ = __webpack_require__(413);
 /* unused harmony reexport Form */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__FormControl__ = __webpack_require__(414);
-/* unused harmony reexport FormControl */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_19__FormControl__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__FormGroup__ = __webpack_require__(417);
-/* unused harmony reexport FormGroup */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_20__FormGroup__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__Glyphicon__ = __webpack_require__(117);
 /* unused harmony reexport Glyphicon */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__Grid__ = __webpack_require__(190);
@@ -61977,7 +61977,7 @@ var StandDetail = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__MenuItem__ = __webpack_require__(432);
 /* unused harmony reexport MenuItem */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__Modal__ = __webpack_require__(433);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_32__Modal__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_32__Modal__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ModalBody__ = __webpack_require__(196);
 /* unused harmony reexport ModalBody */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ModalFooter__ = __webpack_require__(197);
@@ -62045,7 +62045,7 @@ var StandDetail = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_65__Tooltip__ = __webpack_require__(475);
 /* unused harmony reexport Tooltip */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_66__Well__ = __webpack_require__(476);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_66__Well__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_66__Well__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_67__utils__ = __webpack_require__(477);
 /* unused harmony reexport utils */
 
@@ -64333,7 +64333,7 @@ ControlLabel.propTypes = propTypes;
 ControlLabel.defaultProps = defaultProps;
 ControlLabel.contextTypes = contextTypes;
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_9__utils_bootstrapUtils__["a" /* bsClass */]('control-label', ControlLabel));
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_9__utils_bootstrapUtils__["a" /* bsClass */]('control-label', ControlLabel));
 
 /***/ }),
 /* 392 */
@@ -65838,7 +65838,7 @@ FormControl.contextTypes = contextTypes;
 FormControl.Feedback = __WEBPACK_IMPORTED_MODULE_10__FormControlFeedback__["a" /* default */];
 FormControl.Static = __WEBPACK_IMPORTED_MODULE_11__FormControlStatic__["a" /* default */];
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_12__utils_bootstrapUtils__["a" /* bsClass */]('form-control', __WEBPACK_IMPORTED_MODULE_12__utils_bootstrapUtils__["b" /* bsSizes */]([__WEBPACK_IMPORTED_MODULE_13__utils_StyleConfig__["c" /* Size */].SMALL, __WEBPACK_IMPORTED_MODULE_13__utils_StyleConfig__["c" /* Size */].LARGE], FormControl)));
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_12__utils_bootstrapUtils__["a" /* bsClass */]('form-control', __WEBPACK_IMPORTED_MODULE_12__utils_bootstrapUtils__["b" /* bsSizes */]([__WEBPACK_IMPORTED_MODULE_13__utils_StyleConfig__["c" /* Size */].SMALL, __WEBPACK_IMPORTED_MODULE_13__utils_StyleConfig__["c" /* Size */].LARGE], FormControl)));
 
 /***/ }),
 /* 415 */
@@ -66135,7 +66135,7 @@ var FormGroup = function (_React$Component) {
 FormGroup.propTypes = propTypes;
 FormGroup.childContextTypes = childContextTypes;
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_8__utils_bootstrapUtils__["a" /* bsClass */]('form-group', __WEBPACK_IMPORTED_MODULE_8__utils_bootstrapUtils__["b" /* bsSizes */]([__WEBPACK_IMPORTED_MODULE_9__utils_StyleConfig__["c" /* Size */].LARGE, __WEBPACK_IMPORTED_MODULE_9__utils_StyleConfig__["c" /* Size */].SMALL], FormGroup)));
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_8__utils_bootstrapUtils__["a" /* bsClass */]('form-group', __WEBPACK_IMPORTED_MODULE_8__utils_bootstrapUtils__["b" /* bsSizes */]([__WEBPACK_IMPORTED_MODULE_9__utils_StyleConfig__["c" /* Size */].LARGE, __WEBPACK_IMPORTED_MODULE_9__utils_StyleConfig__["c" /* Size */].SMALL], FormGroup)));
 
 /***/ }),
 /* 418 */
@@ -73042,6 +73042,9 @@ var BookingDetail = function (_React$Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__ = __webpack_require__(341);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73052,25 +73055,218 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
+
 var ReserveStand = function (_React$Component) {
 	_inherits(ReserveStand, _React$Component);
 
 	function ReserveStand(props) {
 		_classCallCheck(this, ReserveStand);
 
-		return _possibleConstructorReturn(this, (ReserveStand.__proto__ || Object.getPrototypeOf(ReserveStand)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (ReserveStand.__proto__ || Object.getPrototypeOf(ReserveStand)).call(this, props));
+
+		_this.state = {
+			name: 'something',
+			logo_file: null,
+			address: '',
+			phone: '',
+			admin_name: '',
+			admin_email: ''
+		};
+		_this.handleLogoFileChange = _this.handleLogoFileChange.bind(_this);
+		return _this;
 	}
 
 	_createClass(ReserveStand, [{
+		key: 'handleCompanyNameChange',
+		value: function handleCompanyNameChange(e) {
+			this.setState({ name: e.target.value });
+		}
+	}, {
+		key: 'handleAddressChange',
+		value: function handleAddressChange(e) {
+			this.setState({ address: e.target.value });
+		}
+	}, {
+		key: 'handlePhoneChange',
+		value: function handlePhoneChange(e) {
+			this.setState({ phone: e.target.value });
+		}
+	}, {
+		key: 'handleAdminNameChange',
+		value: function handleAdminNameChange(e) {
+			this.setState({ admin_name: e.target.value });
+		}
+	}, {
+		key: 'handleAdminEmailChange',
+		value: function handleAdminEmailChange(e) {
+			this.setState({ admin_email: e.target.value });
+		}
+	}, {
+		key: 'handleLogoFileChange',
+		value: function handleLogoFileChange(e) {
+			this.setState({ logo_file: e.target.files[0] });
+		}
+	}, {
+		key: 'confirmReservation',
+		value: function confirmReservation(e) {
+			e.preventDefault();
+			console.log('confirming reservation');
+
+			var formData = new FormData();
+			formData.append('logo_file', this.state.logo_file);
+			formData.append('name', this.state.name);
+			formData.append('address', this.state.address);
+			formData.append('phone', this.state.phone);
+			formData.append('admin_name', this.state.admin_name);
+			formData.append('admin_email', this.state.admin_email);
+			var config = {
+				headers: {
+					'content-type': 'multipart/form-data',
+					'Accept': 'application/json'
+				}
+			};
+
+			var endpoint = '/api/stands/' + this.props.stand_id + '/reserve';
+			axios.post(endpoint, formData, config).then(function (response) {
+				console.log(response.data);
+				window.location.href = '/hall-map/' + response.data.event_id;
+			}).catch(function (error) {
+				console.log(error.response.data);
+			});;
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'div',
+				'form',
 				null,
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'h3',
-					null,
-					'Reserve stand component ready to be implemented'
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+					{
+						controlId: 'formCompanyName'
+					},
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+						null,
+						'Company Name'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+						type: 'text',
+						value: this.state.name,
+						placeholder: 'Please enter your company name',
+						onChange: function onChange(e) {
+							return _this2.handleCompanyNameChange(e);
+						}
+					}),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+					{
+						controlId: 'formCompanyLogo'
+					},
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+						null,
+						'Company Logo'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+						type: 'file',
+						placeholder: 'Please enter your company logo',
+						ref: 'logoUpload',
+						onChange: this.handleLogoFileChange
+					}),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+					{
+						controlId: 'formCompanyAddress'
+					},
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+						null,
+						'Address'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+						type: 'text',
+						value: this.state.address,
+						placeholder: 'Please enter company address',
+						onChange: function onChange(e) {
+							return _this2.handleAddressChange(e);
+						}
+					}),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+					{
+						controlId: 'formCompanyPhone'
+					},
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+						null,
+						'Phone'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+						type: 'text',
+						value: this.state.phone,
+						placeholder: 'Please enter company phone number',
+						onChange: function onChange(e) {
+							return _this2.handlePhoneChange(e);
+						}
+					}),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+					{
+						controlId: 'formCompanyAdminName'
+					},
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+						null,
+						'Admin Name'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+						type: 'text',
+						value: this.state.admin_name,
+						placeholder: 'Please enter company admin name',
+						onChange: function onChange(e) {
+							return _this2.handleAdminNameChange(e);
+						}
+					}),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+					{
+						controlId: 'formCompanyAdminEmail'
+					},
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+						null,
+						'Admin Email'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+						type: 'text',
+						value: this.state.admin_email,
+						placeholder: 'Please enter company admin email address',
+						onChange: function onChange(e) {
+							return _this2.handleAdminEmailChange(e);
+						}
+					}),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Button */],
+					{ type: 'submit', onClick: function onClick(e) {
+							return _this2.confirmReservation(e);
+						}, className: 'btn-primary pull-right' },
+					'Confirm Reservation'
 				)
 			);
 		}

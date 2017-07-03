@@ -57,8 +57,9 @@ class StandsController extends Controller
         
         $file = $request->file('logo_file');
         $path = $request->logo_file->store('public/logos');
+        $filename = explode("/",$path)[2];
         
-        $request->merge(['logo' => $path]);
+        $request->merge(['logo' => "/logos/{$filename}" ]);
         $company = $request->except('logo_file');
 
         try {
@@ -67,7 +68,7 @@ class StandsController extends Controller
             return response()->json(['error' => $e->getMessage()], 422);
         }
         
-        return response()->json(['message' => 'You have successfully reserved this stand'], 200);
+        return response()->json(['message' => 'You have successfully reserved this stand', 'event_id' => $stand->event->id], 200);
     }
 
     /**
