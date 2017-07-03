@@ -6,7 +6,9 @@ export default class EventMap extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	    	events:[]
+	    	events:[],
+	    	isEventClicked: false,
+	    	eventId: '#'
 	    };
   	}
 
@@ -34,27 +36,52 @@ export default class EventMap extends React.Component {
 	    GoogleMapsLoader.load(function(google) {
 	    	var map = this.drawMap();
 
-	    	this.markEventsOnMap(map);
-
-	        
+	    	this.markEventsOnMap(map);	        
 		}.bind(this));
   	}
 
   	markEventsOnMap(map){
   		console.log('marking events on map');
-  		this.state.events.forEach(function(event){
-        	new google.maps.Marker({
-	          position: new google.maps.LatLng(event.latitude, event.longitude),
-	          map: map
-	        });
-        	console.log(event.name);
+  		var infowindow = new google.maps.InfoWindow();
+  		
+  		this.state.events.forEach((event) => {
+        	var marker = this.markEvent(event, map);
+
+        	this.addListenersToClickEvents(event, marker, infowindow, map);
         });
+  	}
+
+  	addListenersToClickEvents(event, marker, infowindow, map){
+  		google.maps.event.addListener(marker, 'click', ((marker, event) => {
+  				var eventDetail = '<div>'+
+  									'<h5>' + event.name + '</h5>'+
+  									'<h6>' + event.short_address + '</h6>'+
+  									'<p>' + event.start_date + ' to ' + event.end_date + '</p>' +
+							      '</div>';
+				return () => {
+					console.log('event clicked !');
+					infowindow.setContent(eventDetail);
+					infowindow.open(map, marker);
+					this.setState({
+						isEventClicked: true,
+						eventId: event.id
+					});
+				}
+	        })(marker, event));
+  	}
+
+  	markEvent(event, map){
+  		return new google.maps.Marker({
+	          position: new google.maps.LatLng(event.latitude, event.longitude),
+	          map: map,
+	          title: event.name
+	        });
   	}
 
   	drawMap(){
   		console.log('drawing map');
   		var mapOptions = {
-		        zoom: 16,
+		        zoom: 14,
 		        center: new google.maps.LatLng(40.712785, -74.009035)
 	        }
 			
@@ -71,7 +98,7 @@ export default class EventMap extends React.Component {
 	    return (
 	      	<div className='text-center'>
 		      	<div ref="mapView" style={mapStyle}></div>
-		      	<a disabled href="#" className="btn btn-primary">Book your place</a>
+		      	<a disabled={!this.state.isEventClicked} href={"/events/" + this.state.eventId} className="btn btn-primary">Book your place</a>
 	      	</div>
 	    );
 	}

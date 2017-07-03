@@ -53764,7 +53764,9 @@ var EventMap = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (EventMap.__proto__ || Object.getPrototypeOf(EventMap)).call(this, props));
 
 		_this.state = {
-			events: []
+			events: [],
+			isEventClicked: false,
+			eventId: '#'
 		};
 		return _this;
 	}
@@ -53803,13 +53805,42 @@ var EventMap = function (_React$Component) {
 	}, {
 		key: 'markEventsOnMap',
 		value: function markEventsOnMap(map) {
+			var _this3 = this;
+
 			console.log('marking events on map');
+			var infowindow = new google.maps.InfoWindow();
+
 			this.state.events.forEach(function (event) {
-				new google.maps.Marker({
-					position: new google.maps.LatLng(event.latitude, event.longitude),
-					map: map
-				});
-				console.log(event.name);
+				var marker = _this3.markEvent(event, map);
+
+				_this3.addListenersToClickEvents(event, marker, infowindow, map);
+			});
+		}
+	}, {
+		key: 'addListenersToClickEvents',
+		value: function addListenersToClickEvents(event, marker, infowindow, map) {
+			var _this4 = this;
+
+			google.maps.event.addListener(marker, 'click', function (marker, event) {
+				var eventDetail = '<div>' + '<h5>' + event.name + '</h5>' + '<h6>' + event.short_address + '</h6>' + '<p>' + event.start_date + ' to ' + event.end_date + '</p>' + '</div>';
+				return function () {
+					console.log('event clicked !');
+					infowindow.setContent(eventDetail);
+					infowindow.open(map, marker);
+					_this4.setState({
+						isEventClicked: true,
+						eventId: event.id
+					});
+				};
+			}(marker, event));
+		}
+	}, {
+		key: 'markEvent',
+		value: function markEvent(event, map) {
+			return new google.maps.Marker({
+				position: new google.maps.LatLng(event.latitude, event.longitude),
+				map: map,
+				title: event.name
 			});
 		}
 	}, {
@@ -53817,7 +53848,7 @@ var EventMap = function (_React$Component) {
 		value: function drawMap() {
 			console.log('drawing map');
 			var mapOptions = {
-				zoom: 16,
+				zoom: 14,
 				center: new google.maps.LatLng(40.712785, -74.009035)
 			};
 
@@ -53838,7 +53869,7 @@ var EventMap = function (_React$Component) {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { ref: 'mapView', style: mapStyle }),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
-					{ disabled: true, href: '#', className: 'btn btn-primary' },
+					{ disabled: !this.state.isEventClicked, href: "/events/" + this.state.eventId, className: 'btn btn-primary' },
 					'Book your place'
 				)
 			);
