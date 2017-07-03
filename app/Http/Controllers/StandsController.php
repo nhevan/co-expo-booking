@@ -56,7 +56,7 @@ class StandsController extends Controller
         ]);
         
         $file = $request->file('logo_file');
-        $path = $request->logo_file->store('logos');
+        $path = $request->logo_file->store('public/logos');
         
         $request->merge(['logo' => $path]);
         $company = $request->except('logo_file');

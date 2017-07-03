@@ -68,7 +68,7 @@ class StandReservationTest extends TestCase
 
         $this->post("/api/stands/{$stand->id}/reserve", $company);
 
-        Storage::disk('local')->assertExists("logos/{$fake_file->hashName()}");
-        $this->assertDatabaseHas('companies', ['logo' => "logos/{$fake_file->hashName()}"]);
+        Storage::disk('local')->assertExists("public/logos/{$fake_file->hashName()}");
+        $this->assertDatabaseHas('companies', ['logo' => "public/logos/{$fake_file->hashName()}"]);
     }
 }
