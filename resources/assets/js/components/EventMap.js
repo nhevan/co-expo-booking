@@ -13,22 +13,24 @@ export default class EventMap extends React.Component {
   	}
 
   	componentDidMount() {
-  		this.fetchEvents();
-  		this.loadMap();
+  		this.fetchEventsAndLoadMap();
   	}
 
-  	fetchEvents(){
+  	fetchEventsAndLoadMap(){
   		console.log('fetching events');
   		var endpoint = `/api/events`;
 		axios.get(endpoint)
 			.then((response) => {
 				this.setState({
 					events: response.data,
+				}, () => {
+					this.loadMap();
 				});
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
+		console.log('events fetched.');
   	}
 
   	loadMap(){
@@ -43,11 +45,12 @@ export default class EventMap extends React.Component {
   	markEventsOnMap(map){
   		console.log('marking events on map');
   		var infowindow = new google.maps.InfoWindow();
-  		
+
   		this.state.events.forEach((event) => {
         	var marker = this.markEvent(event, map);
 
         	this.addListenersToClickEvents(event, marker, infowindow, map);
+  			console.log('marked a event');
         });
   	}
 
@@ -97,7 +100,9 @@ export default class EventMap extends React.Component {
 	  	};
 	    return (
 	      	<div className='text-center'>
-		      	<div ref="mapView" style={mapStyle}></div>
+		      	<div ref="mapView" style={mapStyle}>
+		      		<img src="/images/progressbar-loading.gif" />
+		      	</div>
 		      	<a disabled={!this.state.isEventClicked} href={"/hall-map/" + this.state.eventId} className="btn btn-primary">Book your place</a>
 	      	</div>
 	    );
