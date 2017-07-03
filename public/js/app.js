@@ -72942,16 +72942,60 @@ var BookingDetail = function (_React$Component) {
 	}
 
 	_createClass(BookingDetail, [{
-		key: 'render',
+		key: "getCompanyDocuments",
+		value: function getCompanyDocuments() {
+			console.log(this.props.company.documents);
+		}
+	}, {
+		key: "render",
 		value: function render() {
+			var documents = this.getCompanyDocuments();
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'div',
+				"div",
 				null,
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'h3',
+					"h3",
 					null,
-					'Stand booked by ',
+					"Stand booked by ",
 					this.props.company.name
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: this.props.company.logo, alt: "company logo" }),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"p",
+					null,
+					"Address: ",
+					this.props.company.address
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"p",
+					null,
+					"Phone: ",
+					this.props.company.phone
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"p",
+					null,
+					"Admin Name: ",
+					this.props.company.admin_name
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"p",
+					null,
+					"Admin Email: ",
+					this.props.company.admin_email
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"h4",
+					null,
+					"Documents"
+				),
+				documents,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"span",
+					null,
+					"... coming soon ..."
 				)
 			);
 		}
