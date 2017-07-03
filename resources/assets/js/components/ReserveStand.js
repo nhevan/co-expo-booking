@@ -6,7 +6,7 @@ export default class ReserveStand extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: 'something',
+			name: '',
 			logo_file: null,
 			address: '',
 			phone: '',

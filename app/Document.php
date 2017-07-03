@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
+	protected $fillable = ['name', 'file'];
+	
     /**
 	 * a document has a owner company
 	 * @return [type] [description]

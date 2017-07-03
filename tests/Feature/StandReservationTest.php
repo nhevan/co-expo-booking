@@ -69,6 +69,26 @@ class StandReservationTest extends TestCase
         $this->post("/api/stands/{$stand->id}/reserve", $company);
 
         Storage::disk('local')->assertExists("public/logos/{$fake_file->hashName()}");
-        $this->assertDatabaseHas('companies', ['logo' => "public/logos/{$fake_file->hashName()}"]);
+        $this->assertDatabaseHas('companies', ['logo' => "/logos/{$fake_file->hashName()}"]);
+    }
+
+    /**
+     * @test
+     * it can upload multiple documents
+     */
+    public function it_can_upload_multiple_documents()
+    {
+        Storage::fake('local');
+        $doc1 = UploadedFile::fake()->image('document1.txt');
+        $doc2 = UploadedFile::fake()->image('document2.txt');
+        $documents = [$doc1, $doc2];
+        $company = factory('App\Company')->create();
+
+        $this->post("/api/companies/{$company->id}/upload-document", $documents);
+
+        Storage::disk('local')->assertExists("public/documents/{$doc1->hashName()}");
+        Storage::disk('local')->assertExists("public/documents/{$doc2->hashName()}");
+        
+        $this->assertDatabaseHas('documents', [ 'company_id' => $company->id, 'file' => "/documents/{$doc1->hashName()}"]);
     }
 }

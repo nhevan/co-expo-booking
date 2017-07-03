@@ -73066,7 +73066,7 @@ var ReserveStand = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (ReserveStand.__proto__ || Object.getPrototypeOf(ReserveStand)).call(this, props));
 
 		_this.state = {
-			name: 'something',
+			name: '',
 			logo_file: null,
 			address: '',
 			phone: '',

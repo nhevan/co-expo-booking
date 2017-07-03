@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Document;
 use Illuminate\Http\Request;
 
-class CompanysController extends Controller
+class CompaniesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -81,5 +82,33 @@ class CompanysController extends Controller
     public function destroy(Company $company)
     {
         //
+    }
+
+    /**
+     * Saves company related marketing documents
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Company  $company
+     * @return \Illuminate\Http\Response
+     */
+    public function saveDocuments(Request $request, Company $company)
+    {
+        foreach ($request->files as $document) {
+            $filename = $this->uploadFile($document);
+            $new_document = new Document(['name' => $document->name, 'file' => "/documents/{$filename}"]);
+            
+            $company->documents()->save($new_document);
+        }
+    }
+
+    /**
+     * upload a company document
+     * @param  [type] $document [description]
+     * @return [type]           [description]
+     */
+    protected function uploadFile($document)
+    {
+        $path = $document->store('public/documents');
+        return explode("/",$path)[2];
     }
 }
