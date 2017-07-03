@@ -54260,11 +54260,79 @@ var EventStands = function (_React$Component) {
 	}
 
 	_createClass(EventStands, [{
+		key: 'test',
+		value: function test(e) {
+			e.preventDefault();
+			console.log('clicked on stand');
+			alert(e.target.value);
+		}
+	}, {
 		key: 'renderStands',
 		value: function renderStands(stands) {
+			var _this2 = this;
+
 			if (stands.length > 0) {
 				return stands.map(function (stand) {
-					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { className: 'stands', key: stand.id, width: stand.breadth + 'px', height: stand.length + 'px', x: stand.x_cord + 'px', y: stand.y_cord + 'px' });
+					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { onClick: _this2.test,
+						className: 'stands',
+						key: stand.id,
+						width: stand.breadth + 'px',
+						height: stand.length + 'px',
+						x: stand.x_cord + 'px',
+						y: stand.y_cord + 'px' });
+				});
+			} else return [];
+		}
+	}, {
+		key: 'renderInfos',
+		value: function renderInfos(stands) {
+			if (stands.length > 0) {
+				return stands.map(function (stand, index) {
+					if (stand.company) {
+						return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('image', { href: stand.company.logo,
+							key: index,
+							x: stand.breadth / 4 + stand.x_cord,
+							y: stand.length / 3 - stand.y_cord,
+							width: stand.breadth / 2,
+							height: stand.length / 2,
+							fill: 'black' });
+					}
+					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'text',
+						{ key: index,
+							x: stand.breadth / 2 - 17 + stand.x_cord,
+							y: stand.length / 2 + stand.y_cord,
+							fill: 'black' },
+						'$',
+						stand.price
+					);
+				});
+			} else return [];
+		}
+	}, {
+		key: 'renderStatuses',
+		value: function renderStatuses(stands) {
+			if (stands.length > 0) {
+				return stands.map(function (stand, index) {
+					if (stand.company) {
+						return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'text',
+							{ key: index,
+								x: stand.breadth / 2 - 27.5 + stand.x_cord,
+								y: stand.length / 1.2 + stand.y_cord,
+								fill: 'black' },
+							'BOOKED'
+						);
+					}
+
+					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'text',
+						{ key: index,
+							x: stand.breadth / 2 - 17 + stand.x_cord,
+							y: stand.length / 1.2 + stand.y_cord,
+							fill: 'black' },
+						'FREE'
+					);
 				});
 			} else return [];
 		}
@@ -54272,10 +54340,14 @@ var EventStands = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			var stands = this.renderStands(this.props.stands);
+			var infos = this.renderInfos(this.props.stands);
+			var stand_statuses = this.renderStatuses(this.props.stands);
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'svg',
 				{ width: '700px', height: '400px' },
-				stands
+				stands,
+				infos,
+				stand_statuses
 			);
 		}
 	}]);

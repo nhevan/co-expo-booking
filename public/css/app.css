@@ -8364,3 +8364,7 @@ svg rect {
   margin: 0 auto;
 }
 
+.stands:hover {
+  cursor: pointer;
+}
+
