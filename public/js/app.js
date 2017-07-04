@@ -73208,6 +73208,12 @@ var ReserveStand = function (_React$Component) {
 			// 		});
 		}
 	}, {
+		key: 'goBack',
+		value: function goBack(e) {
+			e.preventDefault();
+			window.history.back();
+		}
+	}, {
 		key: 'addDocument',
 		value: function addDocument(e) {
 			e.preventDefault();
@@ -73237,159 +73243,179 @@ var ReserveStand = function (_React$Component) {
 			var _this4 = this;
 
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'form',
-				null,
+				'div',
+				{ className: 'panel panel-default' },
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
-					{
-						controlId: 'formCompanyName'
-					},
+					'div',
+					{ className: 'panel-heading text-center' },
+					'Reserve Stand',
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
-						null,
-						'Company Name'
-					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
-						type: 'text',
-						value: this.state.name,
-						placeholder: 'Please enter your company name',
-						onChange: function onChange(e) {
-							return _this4.handleCompanyNameChange(e);
-						}
-					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
-					{
-						controlId: 'formCompanyLogo'
-					},
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
-						null,
-						'Company Logo'
-					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
-						type: 'file',
-						placeholder: 'Please enter your company logo',
-						ref: 'logoUpload',
-						onChange: this.handleLogoFileChange
-					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
-					{
-						controlId: 'formCompanyAddress'
-					},
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
-						null,
-						'Address'
-					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
-						type: 'text',
-						value: this.state.address,
-						placeholder: 'Please enter company address',
-						onChange: function onChange(e) {
-							return _this4.handleAddressChange(e);
-						}
-					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
-					{
-						controlId: 'formCompanyPhone'
-					},
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
-						null,
-						'Phone'
-					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
-						type: 'text',
-						value: this.state.phone,
-						placeholder: 'Please enter company phone number',
-						onChange: function onChange(e) {
-							return _this4.handlePhoneChange(e);
-						}
-					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
-					{
-						controlId: 'formCompanyAdminName'
-					},
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
-						null,
-						'Admin Name'
-					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
-						type: 'text',
-						value: this.state.admin_name,
-						placeholder: 'Please enter company admin name',
-						onChange: function onChange(e) {
-							return _this4.handleAdminNameChange(e);
-						}
-					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
-					{
-						controlId: 'formCompanyAdminEmail'
-					},
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
-						null,
-						'Admin Email'
-					),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
-						type: 'text',
-						value: this.state.admin_email,
-						placeholder: 'Please enter company admin email address',
-						onChange: function onChange(e) {
-							return _this4.handleAdminEmailChange(e);
-						}
-					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'h3',
-					null,
-					'Company Documents',
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Button */],
-						{ type: 'submit', onClick: function onClick(e) {
-								return _this4.addDocument(e);
-							}, className: 'btn-sm btn-primary pull-right' },
-						'Add Document'
+						'a',
+						{ onClick: function onClick(e) {
+								return _this4.goBack(e);
+							}, href: '/', className: 'btn-sm btn-primary pull-right' },
+						'Back to Exposition Map'
 					)
 				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
-				this.state.document_upload_holder,
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Button */],
-					{ type: 'submit', onClick: function onClick(e) {
-							return _this4.confirmReservation(e);
-						}, className: 'btn-primary pull-right' },
-					'Confirm Reservation'
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["f" /* Modal */],
-					{ show: this.state.showProgressModal },
+					'div',
+					{ className: 'panel-body' },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["f" /* Modal */].Body,
-						{ className: 'text-center' },
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/progressbar-loading.gif', alt: 'submitting request ...' }),
+						'form',
+						null,
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							'p',
+							__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+							{
+								controlId: 'formCompanyName'
+							},
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+								null,
+								'Company Name'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+								type: 'text',
+								value: this.state.name,
+								placeholder: 'Please enter your company name',
+								onChange: function onChange(e) {
+									return _this4.handleCompanyNameChange(e);
+								}
+							}),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+							{
+								controlId: 'formCompanyLogo'
+							},
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+								null,
+								'Company Logo'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+								type: 'file',
+								placeholder: 'Please enter your company logo',
+								ref: 'logoUpload',
+								onChange: this.handleLogoFileChange
+							}),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+							{
+								controlId: 'formCompanyAddress'
+							},
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+								null,
+								'Address'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+								type: 'text',
+								value: this.state.address,
+								placeholder: 'Please enter company address',
+								onChange: function onChange(e) {
+									return _this4.handleAddressChange(e);
+								}
+							}),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+							{
+								controlId: 'formCompanyPhone'
+							},
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+								null,
+								'Phone'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+								type: 'text',
+								value: this.state.phone,
+								placeholder: 'Please enter company phone number',
+								onChange: function onChange(e) {
+									return _this4.handlePhoneChange(e);
+								}
+							}),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+							{
+								controlId: 'formCompanyAdminName'
+							},
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+								null,
+								'Admin Name'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+								type: 'text',
+								value: this.state.admin_name,
+								placeholder: 'Please enter company admin name',
+								onChange: function onChange(e) {
+									return _this4.handleAdminNameChange(e);
+								}
+							}),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["e" /* FormGroup */],
+							{
+								controlId: 'formCompanyAdminEmail'
+							},
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["c" /* ControlLabel */],
+								null,
+								'Admin Email'
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */], {
+								type: 'text',
+								value: this.state.admin_email,
+								placeholder: 'Please enter company admin email address',
+								onChange: function onChange(e) {
+									return _this4.handleAdminEmailChange(e);
+								}
+							}),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["d" /* FormControl */].Feedback, null)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'h3',
 							null,
-							'submitting request ... please wait ...'
+							'Company Documents',
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Button */],
+								{ type: 'submit', onClick: function onClick(e) {
+										return _this4.addDocument(e);
+									}, className: 'btn-sm btn-primary pull-right' },
+								'Add Document'
+							)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+						this.state.document_upload_holder,
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Button */],
+							{ type: 'submit', onClick: function onClick(e) {
+									return _this4.confirmReservation(e);
+								}, className: 'btn-primary pull-right' },
+							'Confirm Reservation'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["f" /* Modal */],
+							{ show: this.state.showProgressModal },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["f" /* Modal */].Body,
+								{ className: 'text-center' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/progressbar-loading.gif', alt: 'submitting request ...' }),
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'p',
+									null,
+									'submitting request ... please wait ...'
+								)
+							)
 						)
 					)
 				)

@@ -112,6 +112,11 @@ export default class ReserveStand extends React.Component {
 		// 		});
 	}
 
+	goBack(e){
+		e.preventDefault();
+		window.history.back();
+	}
+
 	addDocument(e){
  		e.preventDefault();
  		var doc_form = <FormGroup>
@@ -130,104 +135,115 @@ export default class ReserveStand extends React.Component {
 
 	render() {
 		return (
-			<form>
-		        <FormGroup
-		          controlId="formCompanyName"
-		        >
-		          <ControlLabel>Company Name</ControlLabel>
-		          <FormControl
-		            type="text"
-		            value={this.state.name}
-		            placeholder="Please enter your company name"
-		            onChange={(e) => (this.handleCompanyNameChange(e))}
-		          />
-		          <FormControl.Feedback />
-		        </FormGroup>
+			<div className="panel panel-default">
+                <div className="panel-heading text-center">
+                	Reserve Stand
+                	<a onClick={ (e) => (this.goBack(e))} href="/" className="btn-sm btn-primary pull-right">
+                        Back to Exposition Map
+                    </a>
+            	</div>
 
-		        <FormGroup
-		          controlId="formCompanyLogo"
-		        >
-		          <ControlLabel>Company Logo</ControlLabel>
-		          <FormControl
-		            type="file"
-		            placeholder="Please enter your company logo"
-		            ref='logoUpload'
-		            onChange={this.handleLogoFileChange}
-		          />
-		          <FormControl.Feedback />
-		        </FormGroup>
+                <div className="panel-body">
+                	<form>
+				        <FormGroup
+				          controlId="formCompanyName"
+				        >
+				          <ControlLabel>Company Name</ControlLabel>
+				          <FormControl
+				            type="text"
+				            value={this.state.name}
+				            placeholder="Please enter your company name"
+				            onChange={(e) => (this.handleCompanyNameChange(e))}
+				          />
+				          <FormControl.Feedback />
+				        </FormGroup>
 
-		        <FormGroup
-		          controlId="formCompanyAddress"
-		        >
-		          <ControlLabel>Address</ControlLabel>
-		          <FormControl
-		            type="text"
-		            value={this.state.address}
-		            placeholder="Please enter company address"
-		            onChange={(e) => (this.handleAddressChange(e))}
-		          />
-		          <FormControl.Feedback />
-		        </FormGroup>
+				        <FormGroup
+				          controlId="formCompanyLogo"
+				        >
+				          <ControlLabel>Company Logo</ControlLabel>
+				          <FormControl
+				            type="file"
+				            placeholder="Please enter your company logo"
+				            ref='logoUpload'
+				            onChange={this.handleLogoFileChange}
+				          />
+				          <FormControl.Feedback />
+				        </FormGroup>
 
-		        <FormGroup
-		          controlId="formCompanyPhone"
-		        >
-		          <ControlLabel>Phone</ControlLabel>
-		          <FormControl
-		            type="text"
-		            value={this.state.phone}
-		            placeholder="Please enter company phone number"
-		            onChange={(e) => (this.handlePhoneChange(e))}
-		          />
-		          <FormControl.Feedback />
-		        </FormGroup>
+				        <FormGroup
+				          controlId="formCompanyAddress"
+				        >
+				          <ControlLabel>Address</ControlLabel>
+				          <FormControl
+				            type="text"
+				            value={this.state.address}
+				            placeholder="Please enter company address"
+				            onChange={(e) => (this.handleAddressChange(e))}
+				          />
+				          <FormControl.Feedback />
+				        </FormGroup>
 
-		        <FormGroup
-		          controlId="formCompanyAdminName"
-		        >
-		          <ControlLabel>Admin Name</ControlLabel>
-		          <FormControl
-		            type="text"
-		            value={this.state.admin_name}
-		            placeholder="Please enter company admin name"
-		            onChange={(e) => (this.handleAdminNameChange(e))}
-		          />
-		          <FormControl.Feedback />
-		        </FormGroup>
+				        <FormGroup
+				          controlId="formCompanyPhone"
+				        >
+				          <ControlLabel>Phone</ControlLabel>
+				          <FormControl
+				            type="text"
+				            value={this.state.phone}
+				            placeholder="Please enter company phone number"
+				            onChange={(e) => (this.handlePhoneChange(e))}
+				          />
+				          <FormControl.Feedback />
+				        </FormGroup>
 
-		        <FormGroup
-		          controlId="formCompanyAdminEmail"
-		        >
-		          <ControlLabel>Admin Email</ControlLabel>
-		          <FormControl
-		            type="text"
-		            value={this.state.admin_email}
-		            placeholder="Please enter company admin email address"
-		            onChange={(e) => (this.handleAdminEmailChange(e))}
-		          />
-		          <FormControl.Feedback />
-		        </FormGroup>
-		        <hr/>
-		        	<h3>Company Documents
-			        	<Button type="submit" onClick={(e)=>(this.addDocument(e))} className="btn-sm btn-primary pull-right">
-					    	Add Document
+				        <FormGroup
+				          controlId="formCompanyAdminName"
+				        >
+				          <ControlLabel>Admin Name</ControlLabel>
+				          <FormControl
+				            type="text"
+				            value={this.state.admin_name}
+				            placeholder="Please enter company admin name"
+				            onChange={(e) => (this.handleAdminNameChange(e))}
+				          />
+				          <FormControl.Feedback />
+				        </FormGroup>
+
+				        <FormGroup
+				          controlId="formCompanyAdminEmail"
+				        >
+				          <ControlLabel>Admin Email</ControlLabel>
+				          <FormControl
+				            type="text"
+				            value={this.state.admin_email}
+				            placeholder="Please enter company admin email address"
+				            onChange={(e) => (this.handleAdminEmailChange(e))}
+				          />
+				          <FormControl.Feedback />
+				        </FormGroup>
+				        <hr/>
+				        	<h3>Company Documents
+					        	<Button type="submit" onClick={(e)=>(this.addDocument(e))} className="btn-sm btn-primary pull-right">
+							    	Add Document
+							    </Button>
+						    </h3>
+				        <hr/>
+
+				        { this.state.document_upload_holder }
+
+				        <Button type="submit" onClick={(e)=>(this.confirmReservation(e))} className="btn-primary pull-right">
+					    	Confirm Reservation
 					    </Button>
-				    </h3>
-		        <hr/>
-
-		        { this.state.document_upload_holder }
-
-		        <Button type="submit" onClick={(e)=>(this.confirmReservation(e))} className="btn-primary pull-right">
-			    	Confirm Reservation
-			    </Button>
-			    <Modal show={this.state.showProgressModal}>
-					<Modal.Body className="text-center">
-						<img src="/images/progressbar-loading.gif" alt="submitting request ..."/>
-						<p>submitting request ... please wait ...</p>
-		            </Modal.Body>
-				</Modal>
-		      </form>
+					    <Modal show={this.state.showProgressModal}>
+							<Modal.Body className="text-center">
+								<img src="/images/progressbar-loading.gif" alt="submitting request ..."/>
+								<p>submitting request ... please wait ...</p>
+				            </Modal.Body>
+						</Modal>
+				      </form>
+                </div>
+            </div>
 		);
 	}
 }
