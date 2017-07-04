@@ -62232,10 +62232,10 @@ var BookingDetail = function (_React$Component) {
 					return this.props.company.documents.map(function (document, index) {
 						return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							null,
+							{ key: index },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'a',
-								{ href: document.file, target: '_blank', key: index, download: true },
+								{ href: document.file, target: '_blank', download: true },
 								document.name
 							)
 						);
@@ -73089,7 +73089,8 @@ var ReserveStand = function (_React$Component) {
 			admin_name: '',
 			admin_email: '',
 			document: [],
-			document_upload_holder: []
+			document_upload_holder: [],
+			showProgressModal: false
 		};
 		_this.handleLogoFileChange = _this.handleLogoFileChange.bind(_this);
 		_this.handleDocumentsFileChange = _this.handleDocumentsFileChange.bind(_this);
@@ -73139,6 +73140,7 @@ var ReserveStand = function (_React$Component) {
 
 			e.preventDefault();
 			console.log('confirming reservation');
+			this.setState({ showProgressModal: true });
 
 			var formData = new FormData();
 			formData.append('logo_file', this.state.logo_file);
@@ -73157,9 +73159,14 @@ var ReserveStand = function (_React$Component) {
 			var endpoint = '/api/stands/' + this.props.stand_id + '/reserve';
 			axios.post(endpoint, formData, config).then(function (response) {
 				console.log(response.data);
+				console.log('Starting to upload documents.');
+
 				_this2.uploadCompanyDocuments(response.data.company_id);
+				console.log('docs uploaded successully. redirecing now.');
 
 				window.location.href = '/hall-map/' + response.data.event_id;
+
+				console.log('Redirection complete.');
 			}).catch(function (error) {
 				console.log(error);
 			});;
@@ -73169,13 +73176,16 @@ var ReserveStand = function (_React$Component) {
 		value: function uploadCompanyDocuments(company_id) {
 			var _this3 = this;
 
-			this.state.document.forEach(function (document) {
-				_this3.uploadDocument(document, company_id);
-			})(company_id);
+			console.log(this.state.document);
+			this.state.document.forEach(function (doc) {
+				console.log('within upload process');
+				_this3.uploadDocument(doc, company_id);
+			}, company_id);
 		}
 	}, {
 		key: 'uploadDocument',
-		value: function uploadDocument(document, company_id) {
+		value: function uploadDocument(doc, company_id) {
+			console.log('uploading document...');
 			var endpoint = '/api/companies/' + company_id + '/upload-document';
 			var formData = new FormData();
 			var config = {
@@ -73185,12 +73195,17 @@ var ReserveStand = function (_React$Component) {
 				}
 			};
 
-			formData.append('file', document);
-			axios.post(endpoint, formData, config).then(function (response) {
-				console.log(response.data);
-			}).catch(function (error) {
-				console.log(error.response.data);
-			});
+			formData.append('file', doc);
+			var request = new XMLHttpRequest();
+			request.open("POST", endpoint, false);
+			request.send(formData);
+			// axios.post(endpoint, formData, config)
+			// 		.then((response) => {
+			// 			console.log(response.data);
+			// 		})
+			// 		.catch(function (error) {
+			// 			console.log(error.response.data);
+			// 		});
 		}
 	}, {
 		key: 'addDocument',
@@ -73363,6 +73378,20 @@ var ReserveStand = function (_React$Component) {
 							return _this4.confirmReservation(e);
 						}, className: 'btn-primary pull-right' },
 					'Confirm Reservation'
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["f" /* Modal */],
+					{ show: this.state.showProgressModal },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						__WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["f" /* Modal */].Body,
+						{ className: 'text-center' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/images/progressbar-loading.gif', alt: 'submitting request ...' }),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'p',
+							null,
+							'submitting request ... please wait ...'
+						)
+					)
 				)
 			);
 		}

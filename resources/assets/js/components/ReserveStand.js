@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, HelpBlock, Button, Modal } from 'react-bootstrap';
 
 export default class ReserveStand extends React.Component {
 	constructor(props) {
@@ -13,7 +13,8 @@ export default class ReserveStand extends React.Component {
 			admin_name: '',
 			admin_email: '',
 			document : [],
-			document_upload_holder: []
+			document_upload_holder: [],
+			showProgressModal: false
 		};
 		this.handleLogoFileChange = this.handleLogoFileChange.bind(this);
 		this.handleDocumentsFileChange = this.handleDocumentsFileChange.bind(this);
@@ -45,6 +46,7 @@ export default class ReserveStand extends React.Component {
 	confirmReservation(e){
 		e.preventDefault();
 		console.log('confirming reservation');
+		this.setState({showProgressModal: true});
 
 		const formData = new FormData();
 	    formData.append('logo_file',this.state.logo_file);
@@ -64,9 +66,14 @@ export default class ReserveStand extends React.Component {
 		axios.post(endpoint, formData, config)
 				.then((response) => {
 					console.log(response.data);
+					console.log('Starting to upload documents.');
+					
 					this.uploadCompanyDocuments(response.data.company_id);
+					console.log('docs uploaded successully. redirecing now.');
 
 					window.location.href = `/hall-map/${response.data.event_id}`;
+
+					console.log('Redirection complete.');
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -74,12 +81,15 @@ export default class ReserveStand extends React.Component {
 	}
 
 	uploadCompanyDocuments(company_id) {
-		this.state.document.forEach((document) => {
-			this.uploadDocument(document, company_id);
-		})(company_id);
+		console.log(this.state.document);
+		this.state.document.forEach((doc) => {
+			console.log('within upload process');
+			this.uploadDocument(doc, company_id);
+		}, (company_id));
 	}
 
-	uploadDocument(document, company_id){
+	uploadDocument(doc, company_id){
+		console.log('uploading document...');
         var endpoint = `/api/companies/${company_id}/upload-document`;
 		const formData = new FormData();
 	    const config = {
@@ -89,14 +99,17 @@ export default class ReserveStand extends React.Component {
 	        }
         }
 	    
-	    formData.append('file',document);
-		axios.post(endpoint, formData, config)
-				.then((response) => {
-					console.log(response.data);
-				})
-				.catch(function (error) {
-					console.log(error.response.data);
-				});
+	    formData.append('file',doc);
+	    var request = new XMLHttpRequest();
+		request.open("POST", endpoint, false);
+		request.send(formData);
+		// axios.post(endpoint, formData, config)
+		// 		.then((response) => {
+		// 			console.log(response.data);
+		// 		})
+		// 		.catch(function (error) {
+		// 			console.log(error.response.data);
+		// 		});
 	}
 
 	addDocument(e){
@@ -208,6 +221,12 @@ export default class ReserveStand extends React.Component {
 		        <Button type="submit" onClick={(e)=>(this.confirmReservation(e))} className="btn-primary pull-right">
 			    	Confirm Reservation
 			    </Button>
+			    <Modal show={this.state.showProgressModal}>
+					<Modal.Body className="text-center">
+						<img src="/images/progressbar-loading.gif" alt="submitting request ..."/>
+						<p>submitting request ... please wait ...</p>
+		            </Modal.Body>
+				</Modal>
 		      </form>
 		);
 	}
