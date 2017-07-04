@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import { FormGroup, ControlLabel, FormControl, HelpBlock, Button, Modal } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, HelpBlock, Button, Modal, Alert } from 'react-bootstrap';
 
 export default class ReserveStand extends React.Component {
 	constructor(props) {
@@ -14,7 +14,8 @@ export default class ReserveStand extends React.Component {
 			admin_email: '',
 			document : [],
 			document_upload_holder: [],
-			showProgressModal: false
+			showProgressModal: false,
+			validation_errors: []
 		};
 		this.handleLogoFileChange = this.handleLogoFileChange.bind(this);
 		this.handleDocumentsFileChange = this.handleDocumentsFileChange.bind(this);
@@ -46,7 +47,7 @@ export default class ReserveStand extends React.Component {
 	confirmReservation(e){
 		e.preventDefault();
 		console.log('confirming reservation');
-		this.setState({showProgressModal: true});
+		this.setState({showProgressModal: true, validation_errors: []});
 
 		const formData = new FormData();
 	    formData.append('logo_file',this.state.logo_file);
@@ -75,8 +76,23 @@ export default class ReserveStand extends React.Component {
 
 					console.log('Redirection complete.');
 				})
-				.catch(function (error) {
-					console.log(error);
+				.catch((error) => {
+					this.setState({
+						showProgressModal: false
+					});
+					console.log(error.response.data);
+					var obj = error.response.data;
+					for(var propt in obj){
+						// console.log(propt + ': ' + obj[propt]);
+						this.setState({
+							validation_errors: this.state.validation_errors.concat(<Alert bsStyle="danger"><strong>{propt}</strong> :  {obj[propt]}</Alert>)
+						});
+					}
+					
+					// error.response.data.forEach((model)=>{
+					// 	console.log(model[0]);
+					// });
+
 				});;
 	}
 
@@ -235,6 +251,10 @@ export default class ReserveStand extends React.Component {
 				        <Button type="submit" onClick={(e)=>(this.confirmReservation(e))} className="btn-primary pull-right">
 					    	Confirm Reservation
 					    </Button>
+					    <br/><br/><br/><br/>
+				        
+				        { this.state.validation_errors }
+
 					    <Modal show={this.state.showProgressModal}>
 							<Modal.Body className="text-center">
 								<img src="/images/progressbar-loading.gif" alt="submitting request ..."/>
