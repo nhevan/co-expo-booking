@@ -68,8 +68,8 @@ class StandReservationTest extends TestCase
 
         $this->post("/api/stands/{$stand->id}/reserve", $company);
 
-        Storage::disk('local')->assertExists("public/logos/{$fake_file->hashName()}");
-        $this->assertDatabaseHas('companies', ['logo' => "/logos/{$fake_file->hashName()}"]);
+        Storage::disk('s3')->assertExists("tmp/logos/{$fake_file->hashName()}");
+        $this->assertDatabaseHas('companies', ['logo' => "http://dy01r176shqrv.cloudfront.net/tmp/logos/{$fake_file->hashName()}"]);
     }
 
     /**
@@ -86,8 +86,8 @@ class StandReservationTest extends TestCase
 
         $this->post("/api/companies/{$company->id}/upload-document", $document);
 
-        Storage::disk('local')->assertExists("public/documents/{$file->hashName()}");
+        Storage::disk('s3')->assertExists("tmp/documents/{$file->hashName()}");
         
-        $this->assertDatabaseHas('documents', [ 'company_id' => $company->id, 'file' => "/documents/{$file->hashName()}"]);
+        $this->assertDatabaseHas('documents', [ 'company_id' => $company->id, 'file' => "http://dy01r176shqrv.cloudfront.net/tmp/documents/{$file->hashName()}"]);
     }
 }
