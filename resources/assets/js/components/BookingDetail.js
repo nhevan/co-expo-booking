@@ -40,8 +40,6 @@ export default class BookingDetail extends React.Component {
 				<hr/>
 				<h4>Documents</h4>
 				{documents}
-				<hr/>
-				{documents}
 			</div>
 		);
 	}
