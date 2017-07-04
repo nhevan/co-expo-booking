@@ -55,11 +55,11 @@ class StandsController extends Controller
             'admin_email' => 'required|email'
         ]);
         
-        $file = $request->file('logo_file');
-        $path = $request->logo_file->store('public/logos');
-        $filename = explode("/",$path)[2];
+        $path = $request->file('logo_file')->store(
+            'tmp/logos', 's3'
+        );
         
-        $request->merge(['logo' => "/logos/{$filename}" ]);
+        $request->merge(['logo' => 'http://dy01r176shqrv.cloudfront.net/' . $path ]);
         $company_attribute = $request->except('logo_file');
 
         try {
@@ -70,6 +70,8 @@ class StandsController extends Controller
         
         return response()->json(['message' => 'You have successfully reserved this stand', 'event_id' => $stand->event->id, 'company_id'=>$company->id ], 200);
     }
+
+
 
     /**
      * Display the specified resource.

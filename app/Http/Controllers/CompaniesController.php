@@ -93,13 +93,14 @@ class CompaniesController extends Controller
      */
     public function saveDocuments(Request $request, Company $company)
     {
-        $path = $request->file->store('public/documents');
-        $filename = explode("/",$path)[2];
+        $path = $request->file->store(
+            'tmp/documents', 's3'
+        );
 
         try {
             $document = new Document;
             $document->name = $request->file->getClientOriginalName();
-            $document->file = "/documents/{$filename}";
+            $document->file = 'http://dy01r176shqrv.cloudfront.net/' . $path;
 
             $company->documents()->save($document);
         } catch (Exception $e) {
