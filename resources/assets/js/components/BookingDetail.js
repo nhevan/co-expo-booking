@@ -13,8 +13,8 @@ export default class BookingDetail extends React.Component {
 			console.log(this.props.company.documents);
 			if (this.props.company.documents.length != 0) {
 				return this.props.company.documents.map((document, index)=>{
-					return <div>
-					   			<a href={document.file} target="_blank" key={index} download>{document.name}</a>
+					return <div key={index}>
+					   			<a href={document.file} target="_blank" download>{document.name}</a>
 						   </div>
 				});
 			}else{
