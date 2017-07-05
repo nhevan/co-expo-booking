@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -13,11 +14,13 @@ class EventApiTest extends TestCase
 
     /**
      * @test
-     * it lists events in the proper format
+     * it lists upcoming events in the proper format
      */
-    public function it_lists_events_in_the_proper_format()
+    public function it_lists_upcoming_events_in_the_proper_format()
     {
-    	$event = factory('App\Event', 5)->create();
+    	$event = factory('App\Event', 5)->create(['start_date' => Carbon::now()->addDays(2)]);
+        $passed_events = factory('App\Event', 2)->create(['start_date' => Carbon::now()->addDays(-2)]);
+
     	$response = $this->getJson('/api/events')->json();
 
         $this->assertEquals($event->pluck('name')->all(), array_column($response ,'name'));

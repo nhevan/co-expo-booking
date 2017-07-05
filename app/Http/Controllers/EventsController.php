@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventsController extends Controller
@@ -21,7 +22,7 @@ class EventsController extends Controller
      */
     public function index()
     {
-        return response()->json($this->event->all(), 200);
+        return response()->json($this->event->where('start_date', '>', Carbon::now())->get(), 200);
     }
 
     /**
