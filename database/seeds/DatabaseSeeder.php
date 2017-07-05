@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
     		'y_cord' => 10,
     		'is_booked' => 1
 		]);
-		$company = factory('App\Company')->create(['stand_id'=>$stand_1->id]);
+		$company = factory('App\Company')->create(['stand_id'=>$stand_1->id, 'logo' => '/images/demo-logo-2.png']);
 		factory('App\Document')->create(['company_id'=>$company->id]);
 		factory('App\Document')->create(['company_id'=>$company->id]);
 
@@ -51,8 +51,8 @@ class DatabaseSeeder extends Seeder
     		'is_booked' => 1
 		]);
 		$company2 = factory('App\Company')->create(['stand_id'=>$stand_3->id]);
-		factory('App\Document')->create(['company_id'=>$company2->id]);
-		factory('App\Document')->create(['company_id'=>$company2->id]);
+		factory('App\Document')->create(['company_id'=>$company2->id, 'name' => 'Company demo document 1']);
+		factory('App\Document')->create(['company_id'=>$company2->id, 'name' => 'Company demo document 2']);
 
 		$stand_4 = factory('App\Stand')->create([
     		'event_id' => $event1->id,
@@ -84,9 +84,9 @@ class DatabaseSeeder extends Seeder
     		'y_cord' => 200,
     		'is_booked' => 1
 		]);
-		$company = factory('App\Company')->create(['stand_id'=>$stand_2->id]);
-		factory('App\Document')->create(['company_id'=>$company->id]);
-		factory('App\Document')->create(['company_id'=>$company->id]);
+		$company = factory('App\Company')->create(['stand_id'=>$stand_2->id, 'logo' => '/images/demo-logo-2.png']);
+		factory('App\Document')->create(['company_id'=>$company->id, 'name' => 'Company demo document 1']);
+		factory('App\Document')->create(['company_id'=>$company->id, 'name' => 'Company demo document 2']);
 
 		$stand_3 = factory('App\Stand')->create([
     		'event_id' => $event2->id,
