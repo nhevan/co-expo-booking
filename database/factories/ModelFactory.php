@@ -31,8 +31,8 @@ $factory->define(App\Event::class, function (Faker\Generator $faker) {
         'info' => $faker->sentence(2),
         'start_date' => $faker->dateTime,
         'end_date' => $faker->dateTime,
-        'latitude' => $faker->latitude(40.713040, 40.719050),
-        'longitude' => $faker->longitude(-74.003000, -74.009000),
+        'latitude' => $faker->latitude(40.711040, 40.720050),
+        'longitude' => $faker->longitude(-74.000000, -74.010000),
         'blueprint_img' => '/images/hall-map.png',
     ];
 });
