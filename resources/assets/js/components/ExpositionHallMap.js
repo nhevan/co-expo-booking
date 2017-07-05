@@ -39,7 +39,7 @@ export default class ExpositionHallMap extends React.Component {
 		return (
 			<div className='text-center'>
 				<h1>{this.state.event.name} <small>at {this.state.event.short_address}</small></h1>
-				<p>Event time: {this.state.event.start_date}</p>
+				<p>Event time: { new Date(this.state.event.start_date).toDateString() }</p>
 				<div style={hallMapStyle} className="hall-blueprint">
 					<EventStands stands={this.state.stands} />
 				</div>

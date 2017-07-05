@@ -61851,7 +61851,7 @@ var ExpositionHallMap = function (_React$Component) {
 					'p',
 					null,
 					'Event time: ',
-					this.state.event.start_date
+					new Date(this.state.event.start_date).toDateString()
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
