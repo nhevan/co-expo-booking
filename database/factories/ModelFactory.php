@@ -44,7 +44,7 @@ $factory->define(App\Stand::class, function (Faker\Generator $faker) {
         'event_id' => function(){
             return factory('App\Event')->create()->id;
         },
-        'image' => $faker->imageUrl,
+        'image' => '/images/demo-stand.jpg',
         'description' => $faker->sentence(3),
         'price' => $faker->numberBetween(200, 1000),
         'length' => $faker->numberBetween(50, 200),
@@ -59,9 +59,9 @@ $factory->define(App\Company::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,
         'stand_id' => function(){
-            return factory('App\Stand')->create()->id;
+            return factory('App\Stand')->create([ 'is_booked' => 1 ])->id;
         },
-        'logo' => $faker->imageUrl(128, 128),
+        'logo' => '/images/demo-logo.png',
         'address' => $faker->address,
         'phone' => $faker->e164PhoneNumber,
         'admin_name' => $faker->name,
@@ -72,7 +72,7 @@ $factory->define(App\Company::class, function (Faker\Generator $faker) {
 $factory->define(App\Document::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->userName,
-        'file' => $faker->url,
+        'file' => '/images/demo-doc.pdf',
         'company_id' => function(){
             return factory('App\Company')->create()->id;
         },
