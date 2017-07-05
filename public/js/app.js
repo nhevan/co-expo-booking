@@ -61502,7 +61502,7 @@ var EventMap = function (_React$Component) {
 		value: function drawMap() {
 			console.log('drawing map');
 			var mapOptions = {
-				zoom: 14,
+				zoom: 15,
 				center: new google.maps.LatLng(40.712785, -74.009035)
 			};
 
