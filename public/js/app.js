@@ -61476,7 +61476,7 @@ var EventMap = function (_React$Component) {
 			var _this4 = this;
 
 			google.maps.event.addListener(marker, 'click', function (marker, event) {
-				var eventDetail = '<div>' + '<h5>' + event.name + '</h5>' + '<h6>' + event.short_address + '</h6>' + '<p>' + event.start_date + ' to ' + event.end_date + '</p>' + '</div>';
+				var eventDetail = '<div>' + '<h5>' + event.name + '</h5>' + '<h6>' + event.short_address + '</h6>' + '<p>' + new Date(event.start_date).toDateString() + ' to ' + new Date(event.end_date).toDateString() + '</p>' + '</div>';
 				return function () {
 					console.log('event clicked !');
 					infowindow.setContent(eventDetail);
